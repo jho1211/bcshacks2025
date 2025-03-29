@@ -7,6 +7,7 @@ model = whisper.load_model("base")  # Load model only once when Flask starts
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe_audio():
+    print(request.files)
     file = request.files['audio']
     audio_path = "temp_audio.wav"
     file.save(audio_path)
