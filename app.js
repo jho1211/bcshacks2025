@@ -5,7 +5,7 @@ const fs = require("fs");
 const FormData = require("form-data");
 const fetch = require("node-fetch");
 const mongoose = require("mongoose");
-require('dotenv').config();
+require("dotenv").config();
 
 // const transcriptRoutes = require('./routes/transcripts'); // post route at path
 
@@ -81,8 +81,15 @@ if (!fs.existsSync(uploadDir)) {
 // Plugging route into main server
 // app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere
 
-app.listen(port, async () => {
-  console.log(`Example app listening on port http://localhost:${port}`);
-  await mongoose.connect(process.env.mongodb_url);
-  console.log("Connected to MongoDB successfully");
+mongoose
+  .connect(process.env.mongodb_url)
+  .then(() => {
+    console.log("Connected to MongoDB successfully");
+  })
+  .catch((error) => {
+    console.error("Error connecting to MongoDB:", error);
+  });
+
+app.listen(port, () => {
+  console.log(`App listening on port http://localhost:${port}`);
 });
