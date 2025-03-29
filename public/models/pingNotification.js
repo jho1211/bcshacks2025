@@ -1,3 +1,7 @@
+// Ping Notification Model 
+//  (sending pings from police to ehs and vice versa)
+
+
 const mongoose = require('mongoose'); 
 
 const pingNotificationSchema = new mongoose.Schema({

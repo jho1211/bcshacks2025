@@ -1,7 +1,11 @@
+// Transcript Model
+
+
 const mongoose = require('mongoose'); 
 
 const transcriptSchema = new mongoose.Schema({
     callSign: { type: String, required: true},
+    fileNumber: { type: String, required: true },
     dispatcherId: { type: String, required: true },
     transcript: { type: String, required: true},
     timeStamp: { type: String, default: Date.now },

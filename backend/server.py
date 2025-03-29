@@ -13,7 +13,7 @@ def transcribe_audio():
     file.save(audio_path)
 
     # Transcribe using Whisper
-    result = model.transcribe(audio_path)
+    result = model.transcribe(audio_path, language='en', fp16=False)
     transcript = result['text']
 
     # Clean up temporary file

@@ -1,8 +1,9 @@
 const Transcript = require('.../models/Transcript');
 
+// handles incoming HTTP requests to upload a transcript
 const uploadTranscript = async (req, res) => {
-    const { id } = req.params; 
-    const { transcript } = req.body; 
+    const { id } = req.params;  // uses object destructuring to extract id from URL
+    const { transcript } = req.body; // pulls out transcript field from body of request
 
     try {
         const transmission = awaitTranscript.findById(id);

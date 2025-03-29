@@ -10,15 +10,23 @@ body, html {
   header {
     background-color: #28205e;
     color: white;
-    padding: 1rem;
+    padding: 0.3rem 0.5rem;
     text-align: center;
   }
+  
+  header h1 {
+    font-size: 3rem;
+    letter-spacing: 1rem;
+    font-weight: 300;
+    margin: 0;
+  }
+  
   
   main {
     display: flex;
     flex: 1;
-    flex-direction: row;
     height: 100%;
+    overflow: hidden;
   }
   
   #map {
@@ -26,11 +34,41 @@ body, html {
     height: 100vh;
   }
   
-  .controls {
+  .sidebar {
     flex: 1;
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
     background: #f1f1f1;
     box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    padding: 0.5rem;
+  }
+  
+  .panel {
+    background: white;
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+  }
+  
+  .panel h2, .panel h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    background-color: #000;
+    color: white;
+    font-weight: 400;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .placeholder {
+    height: 100px;
+    background-color: #e0e0e0;
+    border: 1px dashed #bbb;
+    border-radius: 4px;
   }
   
   button {
@@ -40,9 +78,19 @@ body, html {
     border: none;
     cursor: pointer;
     margin-bottom: 1rem;
+    border-radius: 5px;
   }
   
   button:hover {
     background-color: #005f8a;
   }
   
+  audio {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  input[type="file"] {
+    display: block;
+    margin-top: 0.5rem;
+  }
