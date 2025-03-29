@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const FormData = require("form-data");
 const fetch = require("node-fetch");
 const mongoose = require("mongoose");
 
@@ -43,26 +44,32 @@ app.post("/upload", upload.single("audio"), async (req, res) => {
   }
   try {
     const audioPath = req.file.path;
+    console.log(audioPath);
 
     // Send the file to the Flask server for transcription
     const formData = new FormData();
-    formData.append("audio", fs.createReadStream(audioPath));
+    const fileStream = fs.createReadStream(audioPath);
+    // console.log(fileStream);
+    formData.append("audio", fileStream);
 
     console.log("calling flask server");
-    const response = await fetch("http://localhost:3001/transcribe", {
+    // console.log(formData.getHeaders());
+    const response = await fetch("http://127.0.0.1:3001/transcribe", {
       method: "POST",
       body: formData,
+      headers: formData.getHeaders(),
     });
-    console.log("waiting for server");
 
-    const transcript = response.data.transcript;
+    const transcript = await response.json();
+    console.log(transcript);
 
-    res.json({ transcript });
+    // const transcript = response.data.transcript;
     console.log(transcript);
 
     // Cleanup
     fs.unlinkSync(audioPath);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: error.toString() });
   }
 });
