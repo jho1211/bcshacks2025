@@ -10,7 +10,12 @@ const transcriptSchema = new mongoose.Schema({
         lng: Number 
     },
     callId: { type: String },
-    isEmergency: { type: Boolean, default: false }
+    isEmergency: { type: Boolean, default: false },
+    transcriptionStatus: { 
+        type: String, 
+        enum: ['pending', 'processing', 'completed', 'error'],
+        default: 'pending'
+    }
 });
 
 const Transcript = mongoose.model('Transcript', transcriptSchema);

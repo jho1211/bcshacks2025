@@ -49,3 +49,18 @@ const uploadDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
+
+
+// Plugging route into main server 
+const mongoose = require('mongoose'); 
+const transcriptRoutes = require('./routes/transcripts'); // post route at path 
+
+const app = express();
+app.use(express.json());
+
+app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere
+
+mongoose.connect('mongodb+srv://popobunns:<BCSHACKS2025>@cluster0.ylj89ay.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+
+app.listen(3000, () => console.log('Server running on '));  // ADD THE HOST 
+// starts web server and makes app go live (locally) 
