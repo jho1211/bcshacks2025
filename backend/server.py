@@ -3,7 +3,7 @@ import whisper
 import os
 
 app = Flask(__name__)
-model = whisper.load_model("base")  # Load model only once when Flask starts
+model = whisper.load_model("tiny")  # Load model only once when Flask starts
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe_audio():
@@ -20,5 +20,4 @@ def transcribe_audio():
 
     return jsonify({'transcript': transcript})
 
-if __name__ == "main":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+app.run(debug=True, host='0.0.0.0', port=3001)
