@@ -10,9 +10,17 @@ body, html {
   header {
     background-color: #28205e;
     color: white;
-    padding: 1rem;
+    padding: 0.3rem 0.5rem;
     text-align: center;
   }
+  
+  header h1 {
+    font-size: 3rem;
+    letter-spacing: 1rem;
+    font-weight: 300;
+    margin: 0;
+  }
+  
   
   main {
     display: flex;
