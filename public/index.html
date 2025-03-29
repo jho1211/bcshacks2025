@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>My Website</title>
-  <link rel="stylesheet" href="./style.css">
-  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dispatcher</title>
+  <link rel="stylesheet" href="leaflet/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
-
+<link href='https://fonts.googleapis.com/css?family=Jura' rel='stylesheet'>
 <body>
+  <header>
+    <h1>T R I A X</h1>
+  </header>
+
   <main>
-    <h1>Welcome to My Website :D</h1>
+    <div id="map"></div>
+    <section class="controls">
+      <button id="recordBtn">Hold to Record</button>
+      <audio id="audioPlayback" controls></audio>
+      <h2>Upload an Audio File</h2>
+      <p id="status"></p>
+    </section>
   </main>
-  <button id="recordBtn">Hold to Record</button>
-  <audio id="audioPlayback" controls></audio>
-  <h2>Upload an Audio File</h2>
-  <p id="status"></p>
+
+  <script src="leaflet/leaflet.js"></script>
   <script src="index.js"></script>
 </body>
-
 </html>

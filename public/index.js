@@ -1,3 +1,9 @@
+const map = L.map('map').setView([49.2827, -123.1207], 13); // Example: Vancouver
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
 let mediaRecorder;
 let audioChunks = [];
 
@@ -51,6 +57,8 @@ function stopRecording() {
     mediaRecorder.stop();
   }
 }
+
+
 
 // Event listeners for button press and release
 recordBtn.addEventListener("mousedown", startRecording);
