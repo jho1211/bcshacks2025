@@ -48,6 +48,12 @@ body, html {
   .panel h2, .panel h3 {
     margin-top: 0;
     margin-bottom: 0.5rem;
+    background-color: #000;
+    color: white;
+    font-weight: 400;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
   }
   
   .placeholder {
