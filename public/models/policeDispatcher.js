@@ -1,3 +1,6 @@
+// Police Dispatcher Model
+
+
 const mongoose = require('mongoose'); 
 
 const policeDispatcherSchema = new mongoose.Schema({

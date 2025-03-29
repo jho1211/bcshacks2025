@@ -1,3 +1,5 @@
+// Police Officer Model
+
 const mongoose = require('mongoose'); 
 
 const policeOfficerSchema = new mongoose.Schema({

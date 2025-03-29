@@ -1,3 +1,6 @@
+// Transcript Model
+
+
 const mongoose = require('mongoose'); 
 
 const transcriptSchema = new mongoose.Schema({
