@@ -2,11 +2,11 @@
 
 const mongoose = require('mongoose'); 
 
-const policeOfficerSchema = new mongoose.Schema({
+const policeOfficerSchema = new mongoose.Schema({});
+policeOfficerSchema.add(userSchema);
+policeOfficerSchema.add({
     callSign: { type: String, required: true},
-    badgeNumber: { type: String, required: true, unique: true },
     rank: { enum: ['constable', 'sergeant', 'staff sergeant'], required: true },
-    precinct: { type: String, required: true }
 });
 
 const Police = mongoose.model('Police', policeOfficerSchema);
