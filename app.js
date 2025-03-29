@@ -2,9 +2,10 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const mongoose = require('mongoose'); 
+const fetch = require("node-fetch");
+const mongoose = require("mongoose");
 
-// const transcriptRoutes = require('./routes/transcripts'); // post route at path 
+// const transcriptRoutes = require('./routes/transcripts'); // post route at path
 
 const app = express();
 const port = 3000;
@@ -35,14 +36,35 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.post("/upload", upload.single("audio"), (req, res) => {
+app.post("/upload", upload.single("audio"), async (req, res) => {
+  console.log("called upload");
   if (!req.file) {
     return res.status(400).json({ error: "No file uploaded" });
   }
-  res.json({
-    message: "File uploaded successfully",
-    filename: req.file.filename,
-  });
+  try {
+    const audioPath = req.file.path;
+
+    // Send the file to the Flask server for transcription
+    const formData = new FormData();
+    formData.append("audio", fs.createReadStream(audioPath));
+
+    console.log("calling flask server");
+    const response = await fetch("http://localhost:3001/transcribe", {
+      method: "POST",
+      body: formData,
+    });
+    console.log("waiting for server");
+
+    const transcript = response.data.transcript;
+
+    res.json({ transcript });
+    console.log(transcript);
+
+    // Cleanup
+    fs.unlinkSync(audioPath);
+  } catch (error) {
+    res.status(500).json({ error: error.toString() });
+  }
 });
 
 // Ensure uploads directory exists
@@ -51,8 +73,7 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 
-
-// Plugging route into main server 
+// Plugging route into main server
 // app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere
 
 app.listen(port, async () => {
