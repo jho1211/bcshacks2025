@@ -63,9 +63,6 @@ app.post("/upload", upload.single("audio"), async (req, res) => {
     const transcript = await response.json();
     console.log(transcript);
 
-    // const transcript = response.data.transcript;
-    console.log(transcript);
-
     // Cleanup
     fs.unlinkSync(audioPath);
   } catch (error) {
