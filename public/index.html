@@ -24,35 +24,38 @@
   
 
   <main>
-    <div id="map"></div>
-
-    <div class="sidebar">
-      <div class="panel">
-        <h2>Incoming Call List</h2>
-        <div class="placeholder"></div>
-      </div>
-      <div class="panel">
-        <h2>Available Units</h2>
-        <div class="placeholder"></div>
-      </div>
-      <div class="panel">
-        <h2>Radio Traffic Transcription</h2>
-        <div class="placeholder"></div>
-      </div>
-      <div class="panel">
-        <h2>Chat</h2>
-        <div class="placeholder"></div>
-      </div>
-      <div class="panel">
-        <h2>Type Here...</h2>
-        <button id="recordBtn">Hold to Record</button>
-        <audio id="audioPlayback" controls></audio>
-        <h3>Upload an Audio File</h3>
-        <input type="file" id="audioFileInput" accept="audio/*">
-        <p id="status"></p>
-      </div>
-    </div>
+	<div class="left-sidebar">
+	  <div id="map"></div>
+	  <div class="panel">
+		<h2>Chat</h2>
+		<div class="placeholder"></div>
+	  </div>
+	</div>
+  
+	<div class="right-sidebar">
+	  <div class="panel">
+		<h2>Incoming Call List</h2>
+		<div class="placeholder"></div>
+	  </div>
+	  <div class="panel">
+		<h2>Available Units</h2>
+		<div class="placeholder"></div>
+	  </div>
+	  <div class="panel">
+		<h2>Radio Traffic Transcription</h2>
+		<div class="placeholder"></div>
+	  </div>
+	  <div class="panel">
+		<h2>Type Here...</h2>
+		<button id="recordBtn">Hold to Record</button>
+		<audio id="audioPlayback" controls></audio>
+		<h3>Upload an Audio File</h3>
+		<input type="file" id="audioFileInput" accept="audio/*">
+		<p id="status"></p>
+	  </div>
+	</div>
   </main>
+  
 
   <script src="leaflet/leaflet.js"></script>
   <script src="index.js"></script>
