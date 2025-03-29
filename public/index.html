@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dispatcher</title>
   <link rel="stylesheet" href="leaflet/leaflet.css" />
   <link rel="stylesheet" href="style.css" />
-  <link href='https://fonts.googleapis.com/css?family=Jura' rel='stylesheet'>
+  <link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
 </head>
 <body>
   <header>
@@ -14,50 +14,50 @@
   </header>
 
   <div class="role-bar">
-	<div class="left">Police Dispatcher Dashboard</div>
-	<div class="right">
-	  <span>Watterson, Josephine</span>
-	  <span>PIN: 1234567890</span>
-	  <span>Precinct: Metro Central</span>
-	</div>
+    <div class="left">Police Dispatcher Dashboard</div>
+    <div class="right">
+      <span>Watterson, Josephine</span>
+      <span>PIN: 1234567890</span>
+      <span>Precinct: Metro Central</span>
+    </div>
   </div>
-  
 
   <main>
-	<div class="left-sidebar">
-	  <div id="map"></div>
-	  <div class="panel">
-		<h2>Chat</h2>
-		<div class="placeholder"></div>
-	  </div>
-	</div>
-  
-	<div class="right-sidebar">
-		<div class="panel-row">
-			<div class="panel call-list">
-			  <h2>Incoming Call List</h2>
-			  <div class="placeholder"></div>
-			</div>
-			<div class="panel units-list">
-			  <h2>Available Units</h2>
-			  <div class="placeholder"></div>
-			</div>
-		  </div>					
-	  <div class="panel">
-		<h2>Radio Traffic Transcription</h2>
-		<div class="placeholder"></div>
-	  </div>
-	  <div class="panel">
-		<h2>Type Here...</h2>
-		<button id="recordBtn">Hold to Record</button>
-		<audio id="audioPlayback" controls></audio>
-		<h3>Upload an Audio File</h3>
-		<input type="file" id="audioFileInput" accept="audio/*">
-		<p id="status"></p>
-	  </div>
-	</div>
+    <div class="left-sidebar">
+      <div id="map"></div>
+      <div class="panel">
+        <h2>Chat</h2>
+        <div class="placeholder"></div>
+      </div>
+    </div>
+
+    <div class="right-sidebar">
+      <div class="panel-row">
+        <div class="panel call-list">
+          <h2>Incoming Call List</h2>
+          <div class="placeholder"></div>
+				</div>
+        <div class="panel units-list">
+          <h2>Available Units</h2>
+          <div class="placeholder"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Radio Traffic Transcription</h2>
+        <div class="placeholder"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Type Here...</h2>
+        <button id="recordBtn">Hold to Record</button>
+        <audio id="audioPlayback" controls></audio>
+        <h3>Upload an Audio File</h3>
+        <input type="file" id="audioFileInput" accept="audio/*">
+        <p id="status"></p>
+      </div>
+    </div>
   </main>
-  
 
   <script src="leaflet/leaflet.js"></script>
   <script src="index.js"></script>
