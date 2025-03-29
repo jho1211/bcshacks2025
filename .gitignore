@@ -2,3 +2,4 @@ node_modules
 bin
 /uploads
 backend/.venv
+.env
