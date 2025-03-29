@@ -1,3 +1,5 @@
+// Ambulance Dispatcher Model
+
 const mongoose = require('mongoose'); 
 
 const ambulanceDispatcherSchema = new mongoose.Schema({
