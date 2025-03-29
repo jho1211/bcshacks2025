@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const mongoose = require('mongoose'); 
 
-const transcriptRoutes = require('./routes/transcripts'); // post route at path 
+// const transcriptRoutes = require('./routes/transcripts'); // post route at path 
 
 const app = express();
 const port = 3000;
@@ -15,10 +15,6 @@ app.get("/example", (req, res) => {
 });
 
 app.use("/", express.static("public"));
-
-app.listen(port, () => {
-  console.log(`Example app listening on port http://localhost:${port}`);
-});
 
 // Multer setup for storing audio files
 const storage = multer.diskStorage({
@@ -57,11 +53,10 @@ if (!fs.existsSync(uploadDir)) {
 
 
 // Plugging route into main server 
-app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere
+// app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere
 
-app.listen(3000, async () => {
-  console.log('Server running on ')
-  mongoose.connect('mongodb+srv://popobunns:<BCSHACKS2025>@cluster0.ylj89ay.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').then(() => {
-    console.log("Connected to MongoDB successfully");
-  });
-}); 
+app.listen(port, async () => {
+  console.log(`Example app listening on port http://localhost:${port}`);
+  // await mongoose.connect('mongodb+srv://popobunns:<BCSHACKS2025>@cluster0.ylj89ay.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+  console.log("Connected to MongoDB successfully");
+});
