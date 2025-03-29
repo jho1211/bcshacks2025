@@ -20,7 +20,39 @@ body, html {
     font-weight: 300;
     margin: 0;
   }
+
+  .role-bar {
+    background-color: #28205e;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 1rem;
+    flex-wrap: nowrap;
+    width: 100%;
+    box-sizing: border-box;
+  }
   
+  .role-bar .left {
+    font-weight: 400;
+    flex-shrink: 0;
+  }
+  
+  .role-bar .right {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  
+  @media (max-width: 600px) {
+    .role-bar .left {
+      display: none;
+    }
+  }
   
   main {
     display: flex;
