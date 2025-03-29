@@ -17,7 +17,7 @@ async function startRecording() {
   };
 
   mediaRecorder.onstop = () => {
-    const audioBlob = new Blob(audioChunks, { type: "audio/ogg" });
+    const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
     const audioUrl = URL.createObjectURL(audioBlob);
     audioPlayback.src = audioUrl;
     audioChunks = []; // Reset chunks for next recording
@@ -30,7 +30,7 @@ async function startRecording() {
 // Function to send audio blob to server
 async function sendAudioBlob(blob) {
   const formData = new FormData();
-  formData.append("audio", blob, "recorded_audio.ogg"); // Assign a filename
+  formData.append("audio", blob, "recorded_audio.wav"); // Assign a filename
 
   try {
     const response = await fetch("/upload", {
