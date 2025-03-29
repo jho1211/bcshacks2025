@@ -5,6 +5,7 @@ const fs = require("fs");
 const FormData = require("form-data");
 const fetch = require("node-fetch");
 const mongoose = require("mongoose");
+require('dotenv').config();
 
 // const transcriptRoutes = require('./routes/transcripts'); // post route at path
 
@@ -82,6 +83,6 @@ if (!fs.existsSync(uploadDir)) {
 
 app.listen(port, async () => {
   console.log(`Example app listening on port http://localhost:${port}`);
-  // await mongoose.connect('mongodb+srv://popobunns:<BCSHACKS2025>@cluster0.ylj89ay.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+  await mongoose.connect(process.env.mongodb_url);
   console.log("Connected to MongoDB successfully");
 });
