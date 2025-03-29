@@ -3,7 +3,7 @@ import whisper
 import os
 
 app = Flask(__name__)
-model = whisper.load_model("tiny")  # Load model only once when Flask starts
+model = whisper.load_model("base")  # Load model only once when Flask starts
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe_audio():
@@ -12,7 +12,7 @@ def transcribe_audio():
     file.save(audio_path)
 
     # Transcribe using Whisper
-    result = model.transcribe(audio_path)
+    result = model.transcribe(audio_path, language='en', fp16=False)
     transcript = result['text']
 
     # Clean up temporary file
