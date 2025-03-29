@@ -10,13 +10,13 @@ body, html {
   header {
     background-color: #28205e;
     color: white;
-    padding: 0.3rem 0.5rem;
+    padding: 0.1rem 0.5rem;
     text-align: center;
   }
   
   header h1 {
     font-size: 3rem;
-    letter-spacing: 1rem;
+    letter-spacing: 1.2rem;
     font-weight: 300;
     margin: 0;
   }
@@ -29,7 +29,7 @@ body, html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.4rem 1rem;
+    padding: 0.0rem 1rem;
     flex-wrap: nowrap;
     width: 100%;
     box-sizing: border-box;
@@ -82,16 +82,15 @@ body, html {
   #map {
     height: 300px;
     width: 100%;
-    border-radius: 8px;
+    border-radius: 0px;
     margin-bottom: 1rem;
   }
   
-  
   .panel {
     background: white;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
     border-radius: 8px;
-    padding: 1rem;
+    padding: 0rem;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
     flex-shrink: 0;
   }
@@ -106,6 +105,21 @@ body, html {
     padding: 0.3rem 0.5rem;
     border-radius: 4px;
   }
+
+  .panel-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0rem;
+  }
+  
+  .panel.call-list {
+    flex: 6.5;
+  }
+  
+  .panel.units-list {
+    flex: 3.5;
+  }
+  
   
   .placeholder {
     height: 100px;
