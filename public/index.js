@@ -74,3 +74,46 @@ document.addEventListener("DOMContentLoaded", () => {
     userDisplay.textContent = callSign.toUpperCase();
   }
 });
+
+// ****** KEYWORD DETECTION********
+
+// Define the set of emergency-related keywords
+const EMERGENCY_KEYWORDS = new Set(["ehs", "ambulance", "medical", "medic"]);
+
+// PLACEHOLDER alert function
+function alert() {
+    console.log("EHS has been alerted");
+}
+
+// Function to detect keywords in a transcription string
+function detectKeywords(transcription) {
+    const detectedKeywords = new Set();
+
+    if (!transcription || transcription.trim() === "") return detectedKeywords;
+
+    // Normalize input to lowercase for case-insensitive matching
+    const normalizedText = transcription.toLowerCase();
+
+    EMERGENCY_KEYWORDS.forEach(keyword => {
+        // Use word boundaries to avoid partial matches (like "MEDICINE")
+        const regex = new RegExp(`\\b${keyword}\\b`);
+        if (regex.test(normalizedText)) {
+            detectedKeywords.add(keyword);
+        }
+    });
+
+    return Array.from(detectedKeywords);
+}
+
+// Processes an array of transcriptions and calls alert if any keyword is detected
+function processTranscripts(transcripts) {
+    transcripts.forEach((transcription, index) => {
+        const keywords = detectKeywords(transcription);
+        if (keywords.length > 0) {
+            console.log(`Transcript ${index + 1}: Detected keywords ->`, keywords);
+            alert(); // Trigger alert if any keyword is found
+        } else {
+            console.log(`Transcript ${index + 1}: No emergency keywords found.`);
+        }
+    });
+}
