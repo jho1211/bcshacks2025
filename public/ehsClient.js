@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function loadSummaries() {
   let summaries = [];
   try {
-    const resp = await fetch("/summary?unit=Police");
+    const resp = await fetch("/summary?unit=EHS");
     const data = await resp.json();
     summaries = data;
   } catch (err) {
