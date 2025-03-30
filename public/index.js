@@ -67,14 +67,6 @@ recordBtn.addEventListener("mouseleave", stopRecording);
 recordBtn.addEventListener("touchstart", startRecording);
 recordBtn.addEventListener("touchend", stopRecording);
 
-document.addEventListener("DOMContentLoaded", () => {
-  const callSign = localStorage.getItem("loggedInCallSign");
-  const userDisplay = document.getElementById("userCallSign");
-  if (userDisplay && callSign) {
-    userDisplay.textContent = callSign.toUpperCase();
-  }
-});
-
 // ****** KEYWORD DETECTION********
 
 // Define the set of emergency-related keywords
