@@ -30,4 +30,15 @@ const uploadTranscript = async (req, res) => {
     }
 };
 
-module.exports = { uploadTranscript }
+const getRecentTranscripts = async (req, res) => {
+    try {
+        const items = await Transcript.find()
+            .sort({timestamp: -1})
+            .limit(50);
+        res.json(items);
+    } catch (err) {
+        res.status(500).json({"error": err})
+    }
+}
+
+module.exports = { uploadTranscript, getRecentTranscripts }

@@ -75,7 +75,7 @@ app.post("/register-callsign", async (req, res) => {
 });
 
 // Plugging route into main server
-// app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere
+app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere
 
 // watching for changes to mongo
 
