@@ -6,7 +6,7 @@ const uploadTranscript = async (req, res) => {
     const { transcript } = req.body; // pulls out transcript field from body of request
 
     try {
-        const transmission = awaitTranscript.findById(id);
+        const transmission = await Transcript.findById(id);
         if (!transmission) {
             return res.status(204).end(); // No content 
         }

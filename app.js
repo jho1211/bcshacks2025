@@ -5,12 +5,26 @@ const fs = require("fs");
 const FormData = require("form-data");
 const fetch = require("node-fetch");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 // const transcriptRoutes = require('./routes/transcripts'); // post route at path
 
 const app = express();
 const port = 3000;
 app.use(express.json());
+
+mongoose
+  .connect(process.env.mongodb_url, { dbName: "triax" })
+  .then(() => {
+    console.log("Connected to MongoDB successfully");
+  })
+  .catch((error) => {
+    console.error("Error connecting to MongoDB:", error);
+  });
+
+app.listen(port, () => {
+  console.log(`App listening on port http://localhost:${port}`);
+});
 
 app.get("/example", (req, res) => {
   res.send("Hello World!");
@@ -61,7 +75,28 @@ app.post("/upload", upload.single("audio"), async (req, res) => {
     });
 
     const transcript = await response.json();
-    console.log(transcript);
+    console.log(transcript.transcript);
+
+    // quick test upload todb
+    const Transcript = require("./public/models/transcript.js");
+    const newTranscript = new Transcript({
+      callSign: "Alpha123",
+      fileNumber: "12345",
+      dispatcherId: "Disp001",
+      transcript: transcript.transcript,
+      location: { lat: 34.0522, lng: -118.2437 }, // Example coordinates
+      callId: "Call001",
+      isEmergency: true,
+      transcriptionStatus: "processing",
+    });
+    newTranscript
+      .save()
+      .then((savedTranscript) => {
+        console.log("Transcript saved:", savedTranscript);
+      })
+      .catch((error) => {
+        console.error("Error saving transcript:", error);
+      });
 
     // Cleanup
     fs.unlinkSync(audioPath);
@@ -79,9 +114,3 @@ if (!fs.existsSync(uploadDir)) {
 
 // Plugging route into main server
 // app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere
-
-app.listen(port, async () => {
-  console.log(`Example app listening on port http://localhost:${port}`);
-  // await mongoose.connect('mongodb+srv://popobunns:<BCSHACKS2025>@cluster0.ylj89ay.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
-  console.log("Connected to MongoDB successfully");
-});
