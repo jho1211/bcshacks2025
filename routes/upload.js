@@ -2,38 +2,11 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const fetch = require("node-fetch"); // Import node-fetch
 const FormData = require("form-data");
-const fetch = require("node-fetch");
-const mongoose = require("mongoose");
-require("dotenv").config();
+const Transcript = require("../models/transcript"); // Adjust path as needed
 
-// const transcriptRoutes = require('./routes/transcripts'); // post route at path
-
-const app = express();
-const port = 3000;
-app.use(express.json());
-
-mongoose
-  .connect(process.env.mongodb_url, { dbName: "triax" })
-  .then(() => {
-    console.log("Connected to MongoDB successfully");
-  })
-  .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
-  });
-
-app.listen(port, () => {
-  console.log(`App listening on port http://localhost:${port}`);
-});
-
-const uploadRoutes = require("./routes/upload");
-app.use("/upload", uploadRoutes);
-
-app.get("/example", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.use("/", express.static("public"));
+const router = express.Router();
 
 // Multer setup for storing audio files
 const storage = multer.diskStorage({
@@ -54,8 +27,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.post("/upload2", upload.single("audio"), async (req, res) => {
-  console.log("called upload");
+router.post("/", upload.single("audio"), async (req, res) => {
+  console.log("called upload with new route");
   if (!req.file) {
     return res.status(400).json({ error: "No file uploaded" });
   }
@@ -66,11 +39,9 @@ app.post("/upload2", upload.single("audio"), async (req, res) => {
     // Send the file to the Flask server for transcription
     const formData = new FormData();
     const fileStream = fs.createReadStream(audioPath);
-    // console.log(fileStream);
     formData.append("audio", fileStream);
 
     console.log("calling flask server");
-    // console.log(formData.getHeaders());
     const response = await fetch("http://127.0.0.1:3001/transcribe", {
       method: "POST",
       body: formData,
@@ -80,8 +51,7 @@ app.post("/upload2", upload.single("audio"), async (req, res) => {
     const transcript = await response.json();
     console.log(transcript.transcript);
 
-    // quick test upload todb
-    const Transcript = require("./models/transcript.js");
+    // quick test upload to db
     const newTranscript = new Transcript({
       callSign: "Alpha123",
       fileNumber: "12345",
@@ -103,6 +73,7 @@ app.post("/upload2", upload.single("audio"), async (req, res) => {
 
     // Cleanup
     fs.unlinkSync(audioPath);
+    res.json(transcript); // Send the transcript as a response
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.toString() });
@@ -115,5 +86,4 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 
-// Plugging route into main server
-// app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere
+module.exports = router;
