@@ -50,6 +50,7 @@ async function sendAudioBlob(blob) {
     "location",
     JSON.stringify(geoLocation == null ? defaultCoords : curLocation)
   );
+  formData.append("unit", "Police");
 
   try {
     const response = await fetch("/upload", {
@@ -108,7 +109,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function loadRecentTranscripts() {
   let recentTranscripts;
   try {
-    const resp = await fetch("/transcripts");
+    const resp = await fetch("/transcripts?unit=Police");
     const data = await resp.json();
     recentTranscripts = data;
   } catch (err) {

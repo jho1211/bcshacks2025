@@ -85,7 +85,11 @@ changeStream.on("change", (change) => {
     // console.log("New Entry:", change.fullDocument);
     // TODO: Add a way to look at call sign and determine which unit the transcript came from
     // based on this, we send police or EHS event emit
-    io.emit("newPoliceEntry", change.fullDocument);
+    if (change.fullDocument.unit == "EHS") {
+      io.emit("newEHSEntry", change.fullDocument);
+    } else {
+      io.emit("newPoliceEntry", change.fullDocument);
+    }
   }
 });
 

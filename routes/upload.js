@@ -36,6 +36,7 @@ router.post("/", upload.single("audio"), async (req, res) => {
     const audioPath = req.file.path;
     const location = JSON.parse(req.body.location);
     const callSign = req.body.callSign;
+    const unit = req.body.unit;
 
     // Send the file to the Flask server for transcription
     const formData = new FormData();
@@ -62,6 +63,7 @@ router.post("/", upload.single("audio"), async (req, res) => {
       callId: "Call001",
       isEmergency: true,
       transcriptionStatus: "processing",
+      unit: unit
     });
     newTranscript
       .save()

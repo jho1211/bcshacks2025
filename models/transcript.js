@@ -11,6 +11,7 @@ const transcriptSchema = new mongoose.Schema({
         lat: Number, 
         lng: Number 
     },
+    unit: { type: String, enum: ["Police", "EHS"], required: true }
 });
 
 const Transcript = mongoose.model('Transcript', transcriptSchema);

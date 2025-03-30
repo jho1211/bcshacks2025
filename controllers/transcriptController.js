@@ -31,8 +31,15 @@ const uploadTranscript = async (req, res) => {
 };
 
 const getRecentTranscripts = async (req, res) => {
+    const unit = req.query.unit;
+    const query = {}
+    
+    if (unit) {
+        query["unit"] = unit;
+    }
+
     try {
-        const items = await Transcript.find()
+        const items = await Transcript.find(query)
             .sort({timeStamp: -1})
             .limit(50);
         res.json(items);
