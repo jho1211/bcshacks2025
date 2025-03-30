@@ -60,15 +60,31 @@ async function sendAudioBlob(blob) {
 
     const result = await response.json();
     console.log("Server response:", result);
-    addMapMarker(curLocation);
+    updateMap(curLocation, userCallSign);
   } catch (error) {
     console.error("Error uploading file:", error);
   }
 }
 
-function addMapMarker(curLocation) {
+let points = {};
+let polylines = {};
+const colors = ["red", "blue", "green", "orange", "purple"];
+
+function updateMap(curLocation, callSign) {
   if (curLocation && curLocation.lat && curLocation.lng) {
-    L.circleMarker([curLocation.lat, curLocation.lng], {radius: 3}).addTo(map);
+    if (!points[callSign]) {
+      points[callSign] = [[curLocation.lat, curLocation.lng]];
+      polylines[callSign] = L.polyline(points[callSign], {
+        color: colors[(Object.keys(points).length - 1) % 5],
+      }).addTo(map);
+    } else {
+      points[callSign].push([curLocation.lat, curLocation.lng]);
+      polylines[callSign].setLatLngs(points[callSign]);
+    }
+    L.circleMarker([curLocation.lat, curLocation.lng], {
+      color: colors[(Object.keys(points).length - 1) % 5],
+      radius: 3,
+    }).addTo(map);
     map.setView([curLocation.lat, curLocation.lng], 10);
   }
 }
@@ -131,7 +147,7 @@ async function loadRecentTranscripts() {
 
   recentTranscripts.forEach((transcript) => {
     addTranscriptItem(transcript);
-    addMapMarker(transcript.location);
+    updateMap(transcript.location, transcript.callSign);
   });
 }
 
@@ -207,7 +223,12 @@ const transcriptionUL = document.getElementById("transcription-list");
 function addTranscriptItem(transcript) {
   transcripts.push(transcript);
   const li = document.createElement("li");
-  li.innerText = `[${parseTimestamp(parseInt(transcript.timeStamp))}] ${transcript.callSign}: ${transcript.transcript}`
+  li.innerText = `[${parseTimestamp(parseInt(transcript.timeStamp))}] ${
+    transcript.callSign
+  }: ${transcript.transcript}`;
+  li.addEventListener("click", () => {
+    zoomToLocation(transcript.location);
+  });
   transcriptionUL.appendChild(li);
 }
 
