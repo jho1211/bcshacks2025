@@ -9,8 +9,6 @@ const userSchema = new mongoose.Schema({
         lat: Number, 
         lng: Number 
     },
-    timeStamp: { type: Date, default: Date.now },
-    transcript: { type: String, required: true},
     role: { type: String, enum: ['police_officer', 'police_dispatcher', 'ambulance_dispatcher'], required: true },
     role: { type: String, enum: ['responder', 'dispatcher'], required: true },
 });
