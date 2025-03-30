@@ -33,6 +33,7 @@ app.use("/upload", uploadRoutes);
 
 app.use("/", express.static("public"));
 
+
 // Multer setup for storing audio files
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads/"),
@@ -142,7 +143,6 @@ app.post("/register-callsign", async (req, res) => {
     const newUser = new User({
       callSign,
       role,
-      location: { lat: 0, lng: 0 },
     });
 
     await newUser.save();
