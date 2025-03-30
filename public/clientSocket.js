@@ -9,6 +9,7 @@ socket.on("newEntry", (data) => {
 const ul = document.getElementById("transcription-list");
 
 function addTranscriptItem(transcript) {
+  transcripts.push(transcript);
   const li = document.createElement("li");
   li.innerText = `[${parseTimestamp(parseInt(transcript.timeStamp))}] ${transcript.callSign}: ${transcript.transcript}`
   ul.appendChild(li);

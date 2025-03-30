@@ -34,8 +34,20 @@ async function promptLlm(transcript) {
 
     const res = await response.json();
     const result = res.message.content;
-    console.log(result);
     return result;
 }
+
+async function summarizeTranscripts() {
+  let combinedText = "";
+  transcripts.forEach((transcript) => combinedText += transcript.transcript);
+  summarizeBtn.innerText = "SUMMARIZING...";
+  const resp = await promptLlm(combinedText);
+  alert("Summary: \n" + resp);
+  summarizeBtn.innerText = "SUMMARIZE TRANSCRIPT";
+}
+
+const summarizeBtn = document.getElementById("summarizeBtn");
+
+summarizeBtn.addEventListener("click", async () => summarizeTranscripts());
 
 // promptLlm("5 minutes ago, suspect is white male running southbound down granville street wearing a black t shirt and red nike dunks. Suspect stabbed an officer and we need ambulance. Suspect is on the west side of the street.")

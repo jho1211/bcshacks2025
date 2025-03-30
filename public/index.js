@@ -7,6 +7,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 let mediaRecorder;
 let audioChunks = [];
 let userCallSign;
+let transcripts = [];
 
 const recordBtn = document.getElementById("recordBtn");
 const audioPlayback = document.getElementById("audioPlayback");
@@ -105,20 +106,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function loadRecentTranscripts() {
-  let transcripts;
-
+  let recentTranscripts;
   try {
     const resp = await fetch("/transcripts");
     const data = await resp.json();
-    transcripts = data;
+    recentTranscripts = data;
   } catch (err) {
     console.error(err);
-    transcripts = [];
+    recentTranscripts = [];
   }
 
-  transcripts.reverse();
+  recentTranscripts.reverse();
 
-  transcripts.forEach((transcript) => {
+  recentTranscripts.forEach((transcript) => {
     addTranscriptItem(transcript);
     addMapMarker(transcript.location);
   });
