@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TRIAX - Call Sign Lookup</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>TRIAX</h1>
+  </header>
+
+  <div class="role-bar">
+    <div class="right">
+      <span>DISPATCH SYSTEM ACCESS</span>
+    </div>
+  </div>
+
+  <main style="justify-content: center; align-items: center;">
+    <div class="panel" style="width: 400px; padding: 1rem;">
+      <h2>CALL SIGN LOOKUP</h2>
+      <form id="lookupForm">
+        <input type="text" id="callSignInput" placeholder="Enter Call Sign" required style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;" />
+        <button type="submit" style="width: 100%;">Check Call Sign</button>
+      </form>
+      <div id="result" style="margin-top: 1rem;"></div>
+
+      <form id="registerForm" style="display: none; margin-top: 1rem;">
+        <h3 style="margin-top: 1rem;">Register New Call Sign</h3>
+        <input type="text" id="confirmCallSign" placeholder="Confirm Call Sign" required style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;" />
+        <select id="roleSelect" style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;">
+          <option value="responder">Responder</option>
+          <option value="dispatcher">Dispatcher</option>
+        </select>
+        <button type="submit" style="width: 100%;">Register</button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    const lookupForm = document.getElementById("lookupForm");
+    const registerForm = document.getElementById("registerForm");
+    const resultDiv = document.getElementById("result");
+
+    let lastCheckedCallSign = "";
+
+    lookupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const callSign = document.getElementById("callSignInput").value.trim();
+      lastCheckedCallSign = callSign;
+
+      const res = await fetch("/check-callsign", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ callSign }),
+      });
+
+      const data = await res.json();
+      if (data.exists) {
+        localStorage.setItem("loggedInCallSign", callSign);
+        localStorage.setItem("loggedInRole", data.user.role);
+        window.location.href = "/";
+      } else {
+        resultDiv.innerHTML = `<p style="color: red;">Call Sign not found. Would you like to register it?</p>`;
+        document.getElementById("confirmCallSign").value = callSign;
+        registerForm.style.display = "block";
+      }
+    });
+
+    registerForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const confirmed = document.getElementById("confirmCallSign").value.trim();
+      const role = document.getElementById("roleSelect").value;
+
+      if (confirmed !== lastCheckedCallSign) {
+        alert("Call sign does not match confirmation.");
+        return;
+      }
+
+      const res = await fetch("/register-callsign", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ callSign: confirmed, role }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem("loggedInCallSign", confirmed);
+        localStorage.setItem("loggedInRole", role);
+        window.location.href = "/";
+      } else {
+        alert("Registration failed: " + data.error);
+      }
+    });
+  </script>
+</body>
+</html>

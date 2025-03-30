@@ -83,6 +83,14 @@ recordBtn.addEventListener("mouseleave", stopRecording);
 recordBtn.addEventListener("touchstart", startRecording);
 recordBtn.addEventListener("touchend", stopRecording);
 
+document.addEventListener("DOMContentLoaded", () => {
+  const callSign = localStorage.getItem("loggedInCallSign");
+  const userDisplay = document.getElementById("userCallSign");
+  if (userDisplay && callSign) {
+    userDisplay.textContent = callSign.toUpperCase();
+  }
+});
+
 //#region Geolocation API
 let getLocation = () => new Promise((resolve, reject) => 
   navigator.geolocation.getCurrentPosition(resolve, reject));
