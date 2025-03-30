@@ -131,6 +131,21 @@ main.centered {
   padding: 0.5rem;
 }
 
+.small-btn {
+  background-color: #888;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  font-size: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.small-btn:hover {
+  background-color: #555;
+}
+
+
 .panel h2,
 .panel h3 {
   margin-top: 0;

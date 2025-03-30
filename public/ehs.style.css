@@ -191,6 +191,20 @@ button:hover {
   background-color: #005f8a;
 }
 
+.small-btn {
+  background-color: #888;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  font-size: 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.small-btn:hover {
+  background-color: #555;
+}
+
 audio {
   width: 100%;
   margin-bottom: 0.5rem;

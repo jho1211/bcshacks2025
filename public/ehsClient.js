@@ -249,3 +249,8 @@ function createIncomingAlert(transcript) {
     zoomToLocation(transcript.location, 20);
   });
 }
+
+document.getElementById("changeCallSignBtn").addEventListener("click", () => {
+  localStorage.clear(); // clear saved call sign, role, unit
+  window.location.href = "/lookup.html";
+});
