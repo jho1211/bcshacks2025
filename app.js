@@ -7,7 +7,7 @@ const fetch = require("node-fetch");
 const mongoose = require("mongoose");
 
 const uploadRoutes = require("./routes/upload");
-const transcriptRoutes = require('./routes/transcripts'); // post route at path
+const transcriptRoutes = require("./routes/transcripts"); // post route at path
 const User = require("./models/userSchema");
 
 require("dotenv").config();
@@ -28,7 +28,6 @@ mongoose
 app.listen(port, () => {
   console.log(`App listening on port http://localhost:${port}`);
 });
-
 
 app.use("/upload", uploadRoutes);
 
@@ -52,11 +51,13 @@ app.post("/check-callsign", async (req, res) => {
 
 app.post("/register-callsign", async (req, res) => {
   const { callSign, role } = req.body;
-  if (!callSign || !role) return res.status(400).json({ error: "Missing call sign or role" });
+  if (!callSign || !role)
+    return res.status(400).json({ error: "Missing call sign or role" });
 
   try {
     const existingUser = await User.findOne({ callSign });
-    if (existingUser) return res.status(409).json({ error: "Call sign already exists" });
+    if (existingUser)
+      return res.status(409).json({ error: "Call sign already exists" });
 
     const newUser = new User({
       callSign,
@@ -70,6 +71,18 @@ app.post("/register-callsign", async (req, res) => {
   }
 });
 
-
 // Plugging route into main server
 // app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere
+
+// watching for changes to mongo
+const Transcript = require("./models/transcript");
+async function startChangeStream() {
+  const changeStream = Transcript.watch().on("change", (change) => {
+    if (change.operationType === "insert") {
+      console.log("New Entry:", change.fullDocument);
+    }
+  });
+  console.log("📡 Listening for new database entries...");
+}
+
+startChangeStream();
