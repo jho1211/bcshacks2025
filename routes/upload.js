@@ -58,7 +58,7 @@ router.post("/", upload.single("audio"), async (req, res) => {
       fileNumber: "12345",
       dispatcherId: "Disp001",
       transcript: transcript.transcript,
-      location: { lat: location.lat, lng: location.lon }, // Example coordinates
+      location: { lat: location.lat, lng: location.lng }, // Example coordinates
       callId: "Call001",
       isEmergency: true,
       transcriptionStatus: "processing",

@@ -38,7 +38,7 @@ async function startRecording() {
 // Function to send audio blob to server
 async function sendAudioBlob(blob) {
   const geoLocation = await getLocation();
-  const curLocation = {"lat": geoLocation.coords.latitude, "lon": geoLocation.coords.longitude}
+  const curLocation = {"lat": geoLocation.coords.latitude, "lng": geoLocation.coords.longitude}
   const formData = new FormData();
   formData.append("audio", blob, "recorded_audio.wav"); // Assign a filename
   formData.append("callSign", userCallSign)
@@ -61,9 +61,8 @@ async function sendAudioBlob(blob) {
 
 function addMapMarker(curLocation) {
   if (curLocation) {
-    L.circleMarker([curLocation.lat, curLocation.lon], {radius: 3}).addTo(map);
-    map.setView([curLocation.lat, curLocation.lon], 10);
-    console.log("Added marker to map and zoomed to location");
+    L.circleMarker([curLocation.lat, curLocation.lng], {radius: 3}).addTo(map);
+    map.setView([curLocation.lat, curLocation.lng], 10);
   }
 }
 
@@ -104,6 +103,7 @@ async function loadRecentTranscripts() {
 
   transcripts.forEach((transcript) => {
     addTranscriptItem(transcript);
+    addMapMarker(transcript.location);
   })
 }
 
