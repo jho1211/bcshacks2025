@@ -6,7 +6,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 let mediaRecorder;
 let audioChunks = [];
-let curLocation;
 
 const recordBtn = document.getElementById("recordBtn");
 const audioPlayback = document.getElementById("audioPlayback");
@@ -151,4 +150,3 @@ const incomingTranscripts = [
 //#endregion
 
 processTranscripts(incomingTranscripts);
-getLocation();
