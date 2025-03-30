@@ -46,7 +46,6 @@ async function summarizeTranscripts() {
 
   summarizeBtn.innerText = "SUMMARIZING...";
   const resp = await promptLlm(combinedText);
-  alert("Summary: \n" + resp);
   summarizeBtn.innerText = "SUMMARIZE TRANSCRIPT";
   const summaryModel = parseSummaryModel(transcripts, combinedText, resp);
 
