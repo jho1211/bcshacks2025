@@ -4,7 +4,7 @@
 const mongoose = require('mongoose'); 
 
 const userSchema = new mongoose.Schema({
-    callSign: { type: String, required: true, unique: true },
+    callSign: { type: String, required: true },
     location: { 
         lat: Number, 
         lng: Number 
