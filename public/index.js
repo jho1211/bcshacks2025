@@ -6,6 +6,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 let mediaRecorder;
 let audioChunks = [];
+let userCallSign;
 
 const recordBtn = document.getElementById("recordBtn");
 const audioPlayback = document.getElementById("audioPlayback");
@@ -40,7 +41,7 @@ async function sendAudioBlob(blob) {
   const curLocation = {"lat": geoLocation.coords.latitude, "lon": geoLocation.coords.longitude}
   const formData = new FormData();
   formData.append("audio", blob, "recorded_audio.wav"); // Assign a filename
-  formData.append("callSign", "Jeff")
+  formData.append("callSign", userCallSign)
   formData.append("location", JSON.stringify(geoLocation == null ? defaultCoords : curLocation))
 
   try {
@@ -83,12 +84,19 @@ recordBtn.addEventListener("touchstart", startRecording);
 recordBtn.addEventListener("touchend", stopRecording);
 
 document.addEventListener("DOMContentLoaded", () => {
+  loadCallSign();
+});
+
+function loadCallSign() {
   const callSign = localStorage.getItem("loggedInCallSign");
   const userDisplay = document.getElementById("userCallSign");
   if (userDisplay && callSign) {
+    userCallSign = callSign;
     userDisplay.textContent = callSign.toUpperCase();
+  } else {
+    window.location.href = "/lookup.html"
   }
-});
+}
 
 //#region Geolocation API
 let getLocation = () => new Promise((resolve, reject) => 
