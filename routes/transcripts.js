@@ -5,4 +5,4 @@ const{ uploadTranscript } = require('../controllers/transcriptController');
 
 router.post('/:id/upload', uploadTranscript); 
 
-module.exports = router; 
+module.exports = router;

@@ -5,9 +5,11 @@ const fs = require("fs");
 const FormData = require("form-data");
 const fetch = require("node-fetch");
 const mongoose = require("mongoose");
-require("dotenv").config();
 
-// const transcriptRoutes = require('./routes/transcripts'); // post route at path
+const uploadRoutes = require("./routes/upload");
+const transcriptRoutes = require('./routes/transcripts'); // post route at path
+
+require("dotenv").config();
 
 const app = express();
 const port = 3000;
@@ -26,9 +28,8 @@ app.listen(port, () => {
   console.log(`App listening on port http://localhost:${port}`);
 });
 
-app.get("/example", (req, res) => {
-  res.send("Hello World!");
-});
+
+app.use("/upload", uploadRoutes);
 
 app.use("/", express.static("public"));
 

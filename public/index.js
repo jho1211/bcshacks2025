@@ -58,8 +58,6 @@ function stopRecording() {
   }
 }
 
-
-
 // Event listeners for button press and release
 recordBtn.addEventListener("mousedown", startRecording);
 recordBtn.addEventListener("mouseup", stopRecording);
