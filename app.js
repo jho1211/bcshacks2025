@@ -7,7 +7,7 @@ const fetch = require("node-fetch");
 const mongoose = require("mongoose");
 
 const uploadRoutes = require("./routes/upload");
-const transcriptRoutes = require('./routes/transcripts'); // post route at path
+const transcriptRoutes = require("./routes/transcripts"); // post route at path
 
 require("dotenv").config();
 
@@ -28,7 +28,19 @@ app.listen(port, () => {
   console.log(`App listening on port http://localhost:${port}`);
 });
 
-
 app.use("/upload", uploadRoutes);
 
 app.use("/", express.static("public"));
+
+// watch for changes to db
+const Transcript = require("./models/transcript");
+async function startChangeStream() {
+  const changeStream = Transcript.watch().on("change", (change) => {
+    if (change.operationType === "insert") {
+      console.log("New Entry:", change.fullDocument);
+    }
+  });
+  console.log("📡 Listening for new database entries...");
+}
+
+startChangeStream();
