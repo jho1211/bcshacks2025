@@ -72,7 +72,6 @@ router.post("/", upload.single("audio"), async (req, res) => {
       });
 
     // Cleanup
-    fs.unlinkSync(audioPath);
     res.json(transcript); // Send the transcript as a response
   } catch (error) {
     console.error(error);

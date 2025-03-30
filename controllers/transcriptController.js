@@ -1,4 +1,4 @@
-const Transcript = require('.../models/Transcript');
+const Transcript = require('../models/transcript');
 
 // handles incoming HTTP requests to upload a transcript
 const uploadTranscript = async (req, res) => {
