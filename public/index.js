@@ -68,21 +68,23 @@ async function sendAudioBlob(blob) {
 
 let points = {};
 let polylines = {};
+let dispatchColors = {};
 const colors = ["red", "blue", "green", "orange", "purple"];
 
 function updateMap(curLocation, callSign) {
   if (curLocation && curLocation.lat && curLocation.lng) {
     if (!points[callSign]) {
+      dispatchColors[callSign] = colors[Object.keys(points).length % 5];
       points[callSign] = [[curLocation.lat, curLocation.lng]];
       polylines[callSign] = L.polyline(points[callSign], {
-        color: colors[(Object.keys(points).length - 1) % 5],
+        color: dispatchColors[callSign],
       }).addTo(map);
     } else {
       points[callSign].push([curLocation.lat, curLocation.lng]);
       polylines[callSign].setLatLngs(points[callSign]);
     }
     L.circleMarker([curLocation.lat, curLocation.lng], {
-      color: colors[(Object.keys(points).length - 1) % 5],
+      color: dispatchColors[callSign],
       radius: 3,
     }).addTo(map);
     map.setView([curLocation.lat, curLocation.lng], 10);
