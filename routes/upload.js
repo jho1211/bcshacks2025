@@ -34,7 +34,8 @@ router.post("/", upload.single("audio"), async (req, res) => {
   }
   try {
     const audioPath = req.file.path;
-    console.log(audioPath);
+    const location = JSON.parse(req.body.location);
+    const callSign = req.body.callSign;
 
     // Send the file to the Flask server for transcription
     const formData = new FormData();
@@ -53,11 +54,11 @@ router.post("/", upload.single("audio"), async (req, res) => {
 
     // quick test upload to db
     const newTranscript = new Transcript({
-      callSign: "Alpha123",
+      callSign: callSign,
       fileNumber: "12345",
       dispatcherId: "Disp001",
       transcript: transcript.transcript,
-      location: { lat: 34.0522, lng: -118.2437 }, // Example coordinates
+      location: { lat: location.lat, lng: location.lon }, // Example coordinates
       callId: "Call001",
       isEmergency: true,
       transcriptionStatus: "processing",
