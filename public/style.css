@@ -14,6 +14,7 @@ body, html {
   height: 100%;
   display: flex;
   flex-direction: column;
+  background-color: var(--blue);
 }
 
 header {
@@ -158,7 +159,7 @@ main.centered {
 }
 
 .placeholder {
-  background-color: #white;
+  background-color: white;
   margin: 0px;
   border-radius: 0px;
   padding: 20px 10px;
