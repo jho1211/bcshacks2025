@@ -65,10 +65,8 @@ async function sendAudioBlob(blob) {
 }
 
 function addMapMarker(curLocation) {
-  if (curLocation) {
-    L.circleMarker([curLocation.lat, curLocation.lng], { radius: 3 }).addTo(
-      map
-    );
+  if (curLocation && curLocation.lat && curLocation.lng) {
+    L.circleMarker([curLocation.lat, curLocation.lng], {radius: 3}).addTo(map);
     map.setView([curLocation.lat, curLocation.lng], 10);
   }
 }
