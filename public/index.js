@@ -119,12 +119,25 @@ document.addEventListener("keyup", (event) => {
   }
 });
 
+function updateRoleBar() {
+  const role = localStorage.getItem("loggedInRole");
+  const unit = localStorage.getItem("loggedInUnit");
+  const roleDisplay = document.getElementById("userRole");
+
+  if (role && unit && roleDisplay) {
+    const roleLabel = role.toUpperCase();     // DISPATCHER or RESPONDER
+    const unitLabel = unit.toUpperCase();     // POLICE or EHS
+    roleDisplay.textContent = `${unitLabel} ${roleLabel} DASHBOARD`;
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   determineDashboard();
   loadCallSign();
   broadcastConnected();
   loadRecentTranscripts();
   loadSummaries();
+  updateRoleBar();
 });
 
 function broadcastConnected() {
@@ -181,7 +194,7 @@ function loadCallSign() {
   const userDisplay = document.getElementById("userCallSign");
   if (userDisplay && callSign) {
     userCallSign = callSign;
-    userDisplay.textContent = callSign.toUpperCase();
+    userDisplay.textContent = `CALL SIGN: ${callSign.toUpperCase()}`;
   } else {
     window.location.href = "/lookup.html";
   }
