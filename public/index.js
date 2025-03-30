@@ -102,9 +102,19 @@ document.addEventListener("keyup", (event) => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+  determineDashboard();
   loadCallSign();
   loadRecentTranscripts();
 });
+
+function determineDashboard() {
+  const unit = localStorage.getItem("loggedInUnit");
+  if (unit == null) {
+    window.location.href = "/lookup.html";
+  } else if (unit == "EHS") {
+    window.location.href = "/ehs.html";
+  }
+}
 
 async function loadRecentTranscripts() {
   let recentTranscripts;

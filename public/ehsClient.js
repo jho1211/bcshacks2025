@@ -102,6 +102,7 @@ document.addEventListener("keyup", (event) => {
 });
 
 document.addEventListener("DOMContentLoaded", async () => {
+  determineDashboard();
   loadCallSign();
   loadRecentTranscripts();
 });
@@ -123,6 +124,15 @@ async function loadRecentTranscripts() {
     addTranscriptItem(transcript);
     addMapMarker(transcript.location);
   });
+}
+
+function determineDashboard() {
+  const unit = localStorage.getItem("loggedInUnit");
+  if (unit == null) {
+    window.location.href = "/lookup.html";
+  } else if (unit == "Police") {
+    window.location.href = "../";
+  }
 }
 
 function loadCallSign() {
