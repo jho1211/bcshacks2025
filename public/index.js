@@ -83,9 +83,39 @@ recordBtn.addEventListener("mouseleave", stopRecording);
 recordBtn.addEventListener("touchstart", startRecording);
 recordBtn.addEventListener("touchend", stopRecording);
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   loadCallSign();
+  loadRecentTranscripts();
 });
+
+async function loadRecentTranscripts() {
+  let transcripts;
+
+  try {
+    const resp = await fetch("/transcripts");
+    const data = await resp.json();
+    transcripts = data;
+  } catch (err) {
+    console.error(err);
+    transcripts = [];
+  }
+
+  const transcriptListEle = document.getElementById("transcription-list");
+  const ul = document.createElement("ul");
+
+  transcripts.forEach((transcript) => {
+    const li = document.createElement("li");
+    li.innerText = `[${parseTimestamp(parseInt(transcript.timeStamp))}] ${transcript.callSign}: ${transcript.transcript}`
+    ul.appendChild(li);
+  })
+
+  transcriptListEle.appendChild(ul);
+}
+
+function parseTimestamp(timestamp) {
+  const date = new Date(timestamp);
+  return date.toISOString();
+}
 
 function loadCallSign() {
   const callSign = localStorage.getItem("loggedInCallSign");
