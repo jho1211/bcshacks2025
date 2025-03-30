@@ -112,5 +112,45 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 
+const User = require("./models/userSchema");
+
+app.post("/check-callsign", async (req, res) => {
+  const { callSign } = req.body;
+  if (!callSign) return res.status(400).json({ error: "Missing call sign" });
+
+  try {
+    const user = await User.findOne({ callSign });
+    if (user) {
+      res.json({ exists: true, user });
+    } else {
+      res.json({ exists: false });
+    }
+  } catch (err) {
+    res.status(500).json({ error: "Database error", details: err.toString() });
+  }
+});
+
+app.post("/register-callsign", async (req, res) => {
+  const { callSign, role } = req.body;
+  if (!callSign || !role) return res.status(400).json({ error: "Missing call sign or role" });
+
+  try {
+    const existingUser = await User.findOne({ callSign });
+    if (existingUser) return res.status(409).json({ error: "Call sign already exists" });
+
+    const newUser = new User({
+      callSign,
+      role,
+      location: { lat: 0, lng: 0 },
+    });
+
+    await newUser.save();
+    res.json({ success: true, user: newUser });
+  } catch (err) {
+    res.status(500).json({ error: "Database error", details: err.toString() });
+  }
+});
+
+
 // Plugging route into main server
 // app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere

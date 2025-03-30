@@ -68,3 +68,11 @@ recordBtn.addEventListener("mouseleave", stopRecording);
 // Touch event support for mobile
 recordBtn.addEventListener("touchstart", startRecording);
 recordBtn.addEventListener("touchend", stopRecording);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const callSign = localStorage.getItem("loggedInCallSign");
+  const userDisplay = document.getElementById("userCallSign");
+  if (userDisplay && callSign) {
+    userDisplay.textContent = callSign.toUpperCase();
+  }
+});
