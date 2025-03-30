@@ -39,11 +39,49 @@ async function promptLlm(transcript) {
 
 async function summarizeTranscripts() {
   let combinedText = "";
-  transcripts.forEach((transcript) => combinedText += transcript.transcript);
+  transcripts.forEach((transcript) => combinedText += `[${parseTimestamp(parseInt(transcript.timeStamp))}] ${
+    transcript.callSign
+  }: ${transcript.transcript}\n`);
+  
   summarizeBtn.innerText = "SUMMARIZING...";
   const resp = await promptLlm(combinedText);
   alert("Summary: \n" + resp);
   summarizeBtn.innerText = "SUMMARIZE TRANSCRIPT";
+  const summaryModel = parseSummaryModel(transcripts, combinedText);
+
+  try {
+    await fetch('summary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(summaryModel)
+    })
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function parseSummaryModel(transcripts, combinedText) {
+  let participants = {};
+  let minTime = Infinity;
+  let maxTime = 0;
+  let unit = "Police";
+
+  transcripts.forEach((transcript) => {
+    participants[transcript.callSign] = true;
+    minTime = Math.min(parseInt(transcript.timeStamp), minTime);
+    maxTime = Math.max(parseInt(transcript.timeStamp), maxTime);
+    unit = transcript.unit;
+  })
+
+  const newSummary = {
+    "minTimestamp": minTime,
+    "maxTimestamp": maxTime,
+    "callSigns": Object.keys(participants),
+    "summary": combinedText,
+    "unit": unit
+  }
+
+  return newSummary;
 }
 
 const summarizeBtn = document.getElementById("summarizeBtn");

@@ -124,6 +124,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   loadCallSign();
   broadcastConnected();
   loadRecentTranscripts();
+  loadSummaries();
 });
 
 function broadcastConnected() {
@@ -141,6 +142,19 @@ function determineDashboard() {
   } else if (unit == "EHS") {
     window.location.href = "/ehs.html";
   }
+}
+
+async function loadSummaries() {
+  let summaries = [];
+  try {
+    const resp = await fetch("/summary?unit=Police");
+    const data = await resp.json();
+    summaries = data;
+  } catch (err) {
+    console.error(err);
+  }
+
+  console.log(summaries);
 }
 
 async function loadRecentTranscripts() {

@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 
 const uploadRoutes = require("./routes/upload");
 const transcriptRoutes = require("./routes/transcripts"); // post route at path
+const summaryRoutes = require("./routes/summary"); // post route at path
 const User = require("./models/userSchema");
 const Transcript = require("./models/transcript");
 
@@ -77,6 +78,7 @@ app.post("/register-callsign", async (req, res) => {
 
 // Plugging route into main server
 app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere
+app.use('/summary', summaryRoutes);
 
 // watching for changes to mongo
 
