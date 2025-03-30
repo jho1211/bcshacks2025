@@ -1,0 +1,155 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Jura';
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header {
+    background-color: #ff2323;
+    color: white;
+    padding: 0.1rem 0.5rem;
+    text-align: center;
+  }
+  
+  header h1 {
+    font-size: 3rem;
+    letter-spacing: 2.5rem;
+    font-weight: 300;
+    margin: 0;
+  }
+  
+  .role-bar {
+    background-color: #ff2323;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    flex-wrap: nowrap;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .role-bar .left {
+    flex-shrink: 0;
+  }
+  
+  .role-bar .right {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.2rem;
+    margin-left: auto;
+    white-space: nowrap;
+  }
+  
+  @media (max-width: 750px) {
+    .role-bar .left {
+      display: none;
+    }
+  }
+  
+  main {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .left-sidebar {
+    width: 40%;
+    background: #ff2323;
+    padding-left: 0.5rem;
+    padding-right: 0rem;
+    padding-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  .right-sidebar {
+    width: 60%;
+    background: #ff2323;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  #map {
+    height: 50vh;
+    min-height: 200px;
+    width: 100%;
+    border-radius: 0px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .panel {
+    background: white;
+    margin-bottom: 0.5rem;
+    border-radius: 0px;
+    padding: 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+  }
+  
+  .panel h2,
+  .panel h3 {
+    margin-top: 0;
+    margin-bottom: 0rem;
+    background-color: #000;
+    color: white;
+    font-weight: 400;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0px;
+  }
+  
+  .panel-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    height: 30vh;
+  }
+  
+  .panel.call-list {
+    flex: 6.5;
+  }
+  
+  .panel.units-list {
+    flex: 3.5;
+  }
+  
+  .placeholder {
+    background-color: #e0e0e0;
+    margin: 0px;
+    border-radius: 0px;
+    padding: 20px 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #005f8a;
+  }
+  
+  audio {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  ul {
+    list-style-type: none;
+  }
