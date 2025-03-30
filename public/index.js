@@ -37,10 +37,12 @@ async function startRecording() {
 
 // Function to send audio blob to server
 async function sendAudioBlob(blob) {
+  const geoLocation = await getLocation();
+  const curLocation = {"lat": geoLocation.coords.latitude, "lon": geoLocation.coords.longitude}
   const formData = new FormData();
   formData.append("audio", blob, "recorded_audio.wav"); // Assign a filename
   formData.append("callSign", "Jeff")
-  formData.append("location", JSON.stringify(curLocation ?? defaultCoords))
+  formData.append("location", JSON.stringify(geoLocation == null ? defaultCoords : curLocation))
 
   try {
     const response = await fetch("/upload", {
@@ -72,23 +74,9 @@ recordBtn.addEventListener("touchstart", startRecording);
 recordBtn.addEventListener("touchend", stopRecording);
 
 //#region Geolocation API
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(success, error);
-  } else {
-    alert("Geolocation is not supported by this browser.");
-  }
-}
+let getLocation = () => new Promise((resolve, reject) => 
+  navigator.geolocation.getCurrentPosition(resolve, reject));
 
-function success(position) {
-  curLocation = {
-    "lat": position.coords.latitude, "lon": position.coords.longitude
-  }
-}
-
-function error() {
-  alert("Sorry, no position available.");
-}
 //#endregion
 
 //#region KEYWORD DETECTION
