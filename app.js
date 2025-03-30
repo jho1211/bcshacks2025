@@ -82,7 +82,14 @@ app.use('/transcripts', transcriptRoutes); // exports router so it can be used e
 changeStream = Transcript.watch();
 changeStream.on("change", (change) => {
   if (change.operationType === "insert") {
-    console.log("New Entry:", change.fullDocument);
+    // console.log("New Entry:", change.fullDocument);
     io.emit("newEntry", change.fullDocument);
   }
 });
+
+io.on("connection", (socket) => {
+  socket.on("sendEHSAlert", (data) => {
+    console.log("hellow orld");
+    io.emit("newEHSAlert", data);
+  })
+})

@@ -66,7 +66,7 @@ router.post("/", upload.single("audio"), async (req, res) => {
     newTranscript
       .save()
       .then((savedTranscript) => {
-        console.log("Transcript saved:", savedTranscript);
+        // console.log("Transcript saved:", savedTranscript);
       })
       .catch((error) => {
         console.error("Error saving transcript:", error);

@@ -179,6 +179,7 @@ function processTranscripts(transcripts) {
       ); // Trigger alert if any keyword is found
       if (conf) {
         createOutgoingAlert(transcription);
+        socket.emit("sendEHSAlert", transcription);
       }
     } else {
       console.log(`Transcript ${index + 1}: No emergency keywords found.`);
@@ -200,4 +201,18 @@ function createOutgoingAlert(transcript) {
 
 function zoomToLocation(loc) {
   map.setView([loc.lat, loc.lng], 15);
+}
+
+const transcriptionUL = document.getElementById("transcription-list");
+
+function addTranscriptItem(transcript) {
+  transcripts.push(transcript);
+  const li = document.createElement("li");
+  li.innerText = `[${parseTimestamp(parseInt(transcript.timeStamp))}] ${transcript.callSign}: ${transcript.transcript}`
+  transcriptionUL.appendChild(li);
+}
+
+function parseTimestamp(timestamp) {
+  const date = new Date(timestamp);
+  return date.toLocaleTimeString();
 }
