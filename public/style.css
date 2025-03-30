@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body, html {
   margin: 0;
   padding: 0;
@@ -60,6 +64,11 @@ main {
   overflow: hidden;
 }
 
+main.centered {
+  justify-content: center;
+  align-items: center;
+}
+
 .left-sidebar {
   width: 40%;
   background: #28205e;
@@ -95,6 +104,25 @@ main {
   padding: 0;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
+}
+
+.panel.lookup {
+  width: 400px;
+  padding: 1rem;
+}
+
+.panel.lookup form,
+.panel.lookup #result {
+  width: 100%;
+}
+
+.panel.lookup input.full-width,
+.panel.lookup select.full-width,
+.panel.lookup form button {
+  display: block;
+  width: 100%;
+  margin: 0 0 0.5rem 0;
+  padding: 0.5rem;
 }
 
 .panel h2,
@@ -141,8 +169,18 @@ button {
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
 }
+
+button,
+button#recordBtn,
+button#summarizeBtn,
+form button,
+.panel button {
+  border-radius: 0px !important;
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+}
+
 
 button:hover {
   background-color: #005f8a;
@@ -155,4 +193,24 @@ audio {
 
 ul {
   list-style-type: none;
+}
+
+#result {
+  margin-top: 1rem;
+}
+
+#registerForm {
+  display: none;
+  margin-top: 1rem;
+}
+
+#registerForm h3 {
+  margin-top: 1rem;
+}
+
+input.full-width,
+select.full-width {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
 }

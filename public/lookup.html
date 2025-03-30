@@ -17,27 +17,27 @@
     </div>
   </div>
 
-  <main style="justify-content: center; align-items: center;">
-    <div class="panel" style="width: 400px; padding: 1rem;">
+  <main class="centered">
+    <div class="panel lookup">
       <h2>CALL SIGN LOOKUP</h2>
       <form id="lookupForm">
-        <input type="text" id="callSignInput" placeholder="Enter Call Sign" required style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;" />
-        <button type="submit" style="width: 100%;">Check Call Sign</button>
+        <input type="text" id="callSignInput" class="full-width" placeholder="Enter Call Sign" required />
+        <button type="submit">Check Call Sign</button>
       </form>
-      <div id="result" style="margin-top: 1rem;"></div>
+      <div id="result"></div>
 
-      <form id="registerForm" style="display: none; margin-top: 1rem;">
-        <h3 style="margin-top: 1rem;">Register New Call Sign</h3>
-        <input type="text" id="confirmCallSign" placeholder="Confirm Call Sign" required style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;" />
-        <select id="roleSelect" style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;">
+      <form id="registerForm">
+        <h3>Register New Call Sign</h3>
+        <input type="text" id="confirmCallSign" class="full-width" placeholder="Confirm Call Sign" required />
+        <select id="roleSelect" class="full-width">
           <option value="responder">Responder</option>
           <option value="dispatcher">Dispatcher</option>
         </select>
-        <select id="unitSelect" style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;">
+        <select id="unitSelect" class="full-width">
           <option value="Police">Police</option>
           <option value="EHS">EHS</option>
         </select>
-        <button type="submit" style="width: 100%;">Register</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   </main>
@@ -67,7 +67,7 @@
         localStorage.setItem("loggedInUnit", data.user.unit);
         
         if (data.user?.unit == "EHS") {
-          window.location.href="/ehs.html"
+          window.location.href = "/ehs.html";
         } else {
           window.location.href = "/";
         }
@@ -102,7 +102,7 @@
         localStorage.setItem("loggedInUnit", unit);
 
         if (unit == "EHS") {
-          window.location.href="/ehs.html"
+          window.location.href = "/ehs.html";
         } else {
           window.location.href = "/";
         }
