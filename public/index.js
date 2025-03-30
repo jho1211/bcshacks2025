@@ -52,8 +52,18 @@ async function sendAudioBlob(blob) {
 
     const result = await response.json();
     console.log("Server response:", result);
+    addMapMarker(curLocation);
+
   } catch (error) {
     console.error("Error uploading file:", error);
+  }
+}
+
+function addMapMarker(curLocation) {
+  if (curLocation) {
+    L.circleMarker([curLocation.lat, curLocation.lon], {radius: 3}).addTo(map);
+    map.setView([curLocation.lat, curLocation.lon], 10);
+    console.log("Added marker to map and zoomed to location");
   }
 }
 
