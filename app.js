@@ -9,10 +9,13 @@ const mongoose = require("mongoose");
 const uploadRoutes = require("./routes/upload");
 const transcriptRoutes = require("./routes/transcripts"); // post route at path
 const User = require("./models/userSchema");
+const Transcript = require("./models/transcript");
 
 require("dotenv").config();
 
 const app = express();
+const server = require("http").createServer(app);
+const io = require("socket.io")(server);
 const port = 3000;
 app.use(express.json());
 
@@ -25,7 +28,7 @@ mongoose
     console.error("Error connecting to MongoDB:", error);
   });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`App listening on port http://localhost:${port}`);
 });
 
@@ -75,14 +78,11 @@ app.post("/register-callsign", async (req, res) => {
 // app.use('/transcripts', transcriptRoutes); // exports router so it can be used elsewhere
 
 // watching for changes to mongo
-const Transcript = require("./models/transcript");
-async function startChangeStream() {
-  const changeStream = Transcript.watch().on("change", (change) => {
-    if (change.operationType === "insert") {
-      console.log("New Entry:", change.fullDocument);
-    }
-  });
-  console.log("📡 Listening for new database entries...");
-}
 
-startChangeStream();
+changeStream = Transcript.watch();
+changeStream.on("change", (change) => {
+  if (change.operationType === "insert") {
+    console.log("New Entry:", change.fullDocument);
+    io.emit("newEntry", change.fullDocument);
+  }
+});
