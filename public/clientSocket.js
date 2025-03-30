@@ -15,5 +15,5 @@ function addTranscriptItem(transcript) {
 
 function parseTimestamp(timestamp) {
   const date = new Date(timestamp);
-  return date.toLocaleString();
+  return date.toLocaleTimeString();
 }

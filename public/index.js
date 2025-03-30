@@ -100,6 +100,8 @@ async function loadRecentTranscripts() {
     transcripts = [];
   }
 
+  transcripts.reverse();
+
   transcripts.forEach((transcript) => {
     addTranscriptItem(transcript);
   })

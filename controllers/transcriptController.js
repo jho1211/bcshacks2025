@@ -33,7 +33,7 @@ const uploadTranscript = async (req, res) => {
 const getRecentTranscripts = async (req, res) => {
     try {
         const items = await Transcript.find()
-            .sort({timestamp: -1})
+            .sort({timeStamp: -1})
             .limit(50);
         res.json(items);
     } catch (err) {
