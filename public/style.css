@@ -81,11 +81,11 @@ main {
 }
 
 #map {
-  height: 60vh;
+  height: 50vh;
   min-height: 200px;
   width: 100%;
   border-radius: 0px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .panel {
@@ -112,7 +112,8 @@ main {
 .panel-row {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 0rem;
+  margin-bottom: 1.5rem;
+  height: 30vh;
 }
 
 .panel.call-list {
@@ -124,10 +125,10 @@ main {
 }
 
 .placeholder {
-  height: 100px;
+  height: 100%;
   background-color: #e0e0e0;
-  border: 1px dashed #bbb;
-  border-radius: 4px;
+
+  border-radius: 0px;
 }
 
 button {
@@ -147,9 +148,4 @@ button:hover {
 audio {
   width: 100%;
   margin-bottom: 0.5rem;
-}
-
-input[type="file"] {
-  display: block;
-  margin-top: 0.5rem;
 }
