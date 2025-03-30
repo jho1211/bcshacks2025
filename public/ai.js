@@ -8,6 +8,7 @@ Do NOT write complete sentences or extra commentary.
 Here is the format to follow exactly:
 
 - Time Delay: [when did the incident occur?]
+- Weapons: [what kind of weapons?]
 - Suspects: [how many?]
 - Suspect Description: [vehicle, clothing, weapons, etc.]
 - Injuries/Medical: [any injuries or if ambulance needed]
