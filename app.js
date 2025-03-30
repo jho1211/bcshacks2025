@@ -102,4 +102,8 @@ io.on("connection", (socket) => {
   socket.on("sendPoliceAlert", (data) => {
     io.emit("newPoliceAlert", data);
   });
+
+  socket.on("policeConnected", (callSign) => {
+    io.emit("newPoliceResponder", callSign);
+  })
 })

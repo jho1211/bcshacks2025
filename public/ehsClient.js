@@ -104,8 +104,17 @@ document.addEventListener("keyup", (event) => {
 document.addEventListener("DOMContentLoaded", async () => {
   determineDashboard();
   loadCallSign();
+  broadcastConnected();
   loadRecentTranscripts();
 });
+
+function broadcastConnected() {
+  const role = localStorage.getItem("loggedInRole");
+  const callSign = localStorage.getItem("loggedInCallSign");
+  if (callSign && role == "responder") {
+    socket.emit("ehsConnected", callSign);
+  }
+}
 
 async function loadRecentTranscripts() {
   let recentTranscripts;
@@ -198,8 +207,8 @@ function processTranscripts(transcripts) {
   });
 }
 
-function zoomToLocation(loc) {
-  map.setView([loc.lat, loc.lng], 15);
+function zoomToLocation(loc, zoomLevel=15) {
+  map.setView([loc.lat, loc.lng], zoomLevel);
 }
 
 const transcriptionUL = document.getElementById("transcription-list");
@@ -224,6 +233,6 @@ function createIncomingAlert(transcript) {
   )}] Police has requested EHS.`;
   incDiv.appendChild(newDiv);
   newDiv.addEventListener("click", () => {
-    zoomToLocation(transcript.location);
+    zoomToLocation(transcript.location, 20);
   });
 }

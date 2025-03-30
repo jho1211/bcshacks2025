@@ -9,3 +9,10 @@ function createOutgoingAlert(transcript) {
       zoomToLocation(transcript.location);
     });
 }
+
+function populateConnected(callSign) {
+    const div = document.getElementById("connectedDiv");
+    const newDiv = document.createElement("div");
+    newDiv.innerHTML = callSign;
+    div.appendChild(newDiv);
+  }

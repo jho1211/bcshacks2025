@@ -122,8 +122,17 @@ document.addEventListener("keyup", (event) => {
 document.addEventListener("DOMContentLoaded", async () => {
   determineDashboard();
   loadCallSign();
+  broadcastConnected();
   loadRecentTranscripts();
 });
+
+function broadcastConnected() {
+  const role = localStorage.getItem("loggedInRole");
+  const callSign = localStorage.getItem("loggedInCallSign");
+  if (callSign && role == "responder") {
+    socket.emit("policeConnected", callSign);
+  }
+}
 
 function determineDashboard() {
   const unit = localStorage.getItem("loggedInUnit");
