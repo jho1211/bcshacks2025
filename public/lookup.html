@@ -65,8 +65,8 @@
         localStorage.setItem("loggedInCallSign", callSign);
         localStorage.setItem("loggedInRole", data.user.role);
         localStorage.setItem("loggedInUnit", data.user.unit);
-
-        if (unit == "EHS") {
+        
+        if (data.user?.unit == "EHS") {
           window.location.href="/ehs.html"
         } else {
           window.location.href = "/";
