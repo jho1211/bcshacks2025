@@ -33,6 +33,10 @@
           <option value="responder">Responder</option>
           <option value="dispatcher">Dispatcher</option>
         </select>
+        <select id="unitSelect" style="width: 100%; padding: 0.5rem; margin-bottom: 0.5rem;">
+          <option value="Police">Police</option>
+          <option value="EHS">EHS</option>
+        </select>
         <button type="submit" style="width: 100%;">Register</button>
       </form>
     </div>
@@ -60,7 +64,13 @@
       if (data.exists) {
         localStorage.setItem("loggedInCallSign", callSign);
         localStorage.setItem("loggedInRole", data.user.role);
-        window.location.href = "/";
+        localStorage.setItem("loggedInUnit", data.user.unit);
+
+        if (unit == "EHS") {
+          window.location.href="/ehs.html"
+        } else {
+          window.location.href = "/";
+        }
       } else {
         resultDiv.innerHTML = `<p style="color: red;">Call Sign not found. Would you like to register it?</p>`;
         document.getElementById("confirmCallSign").value = callSign;
@@ -72,6 +82,7 @@
       e.preventDefault();
       const confirmed = document.getElementById("confirmCallSign").value.trim();
       const role = document.getElementById("roleSelect").value;
+      const unit = document.getElementById("unitSelect").value;
 
       if (confirmed !== lastCheckedCallSign) {
         alert("Call sign does not match confirmation.");
@@ -81,14 +92,20 @@
       const res = await fetch("/register-callsign", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ callSign: confirmed, role }),
+        body: JSON.stringify({ callSign: confirmed, role, unit }),
       });
 
       const data = await res.json();
       if (data.success) {
         localStorage.setItem("loggedInCallSign", confirmed);
         localStorage.setItem("loggedInRole", role);
-        window.location.href = "/";
+        localStorage.setItem("loggedInUnit", unit);
+
+        if (unit == "EHS") {
+          window.location.href="/ehs.html"
+        } else {
+          window.location.href = "/";
+        }
       } else {
         alert("Registration failed: " + data.error);
       }

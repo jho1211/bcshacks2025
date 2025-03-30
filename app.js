@@ -53,7 +53,7 @@ app.post("/check-callsign", async (req, res) => {
 });
 
 app.post("/register-callsign", async (req, res) => {
-  const { callSign, role } = req.body;
+  const { callSign, role, unit } = req.body;
   if (!callSign || !role)
     return res.status(400).json({ error: "Missing call sign or role" });
 
@@ -65,6 +65,7 @@ app.post("/register-callsign", async (req, res) => {
     const newUser = new User({
       callSign,
       role,
+      unit,
     });
 
     await newUser.save();
