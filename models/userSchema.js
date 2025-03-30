@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema({
         lng: Number 
     },
     transcript: { type: String, required: true},
-  });
+    role: { type: String, enum: ['police_officer', 'police_dispatcher', 'ambulance_dispatcher'], required: true },
+});
   
   const User = mongoose.model('User', userSchema);
   
