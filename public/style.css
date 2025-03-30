@@ -131,13 +131,16 @@ main {
   padding: 20px 10px;
 }
 
+#recordBtn {
+  margin-bottom: 1rem;
+}
+
 button {
   padding: 10px 20px;
   background-color: #0077b6;
   color: white;
   border: none;
   cursor: pointer;
-  margin-bottom: 1rem;
   border-radius: 5px;
 }
 
