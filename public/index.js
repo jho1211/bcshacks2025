@@ -1,7 +1,7 @@
-const map = L.map('map').setView([49.2827, -123.1207], 13); // Example: Vancouver
+const map = L.map("map").setView([49.2827, -123.1207], 13); // Example: Vancouver
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; OpenStreetMap contributors'
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: "&copy; OpenStreetMap contributors",
 }).addTo(map);
 
 let mediaRecorder;
@@ -10,7 +10,7 @@ let userCallSign;
 
 const recordBtn = document.getElementById("recordBtn");
 const audioPlayback = document.getElementById("audioPlayback");
-const defaultCoords = {"lat": 0, "lon": 0}
+const defaultCoords = { lat: 0, lon: 0 };
 
 // Function to start recording
 async function startRecording() {
@@ -38,11 +38,17 @@ async function startRecording() {
 // Function to send audio blob to server
 async function sendAudioBlob(blob) {
   const geoLocation = await getLocation();
-  const curLocation = {"lat": geoLocation.coords.latitude, "lng": geoLocation.coords.longitude}
+  const curLocation = {
+    lat: geoLocation.coords.latitude,
+    lng: geoLocation.coords.longitude,
+  };
   const formData = new FormData();
   formData.append("audio", blob, "recorded_audio.wav"); // Assign a filename
-  formData.append("callSign", userCallSign)
-  formData.append("location", JSON.stringify(geoLocation == null ? defaultCoords : curLocation))
+  formData.append("callSign", userCallSign);
+  formData.append(
+    "location",
+    JSON.stringify(geoLocation == null ? defaultCoords : curLocation)
+  );
 
   try {
     const response = await fetch("/upload", {
@@ -53,7 +59,6 @@ async function sendAudioBlob(blob) {
     const result = await response.json();
     console.log("Server response:", result);
     addMapMarker(curLocation);
-
   } catch (error) {
     console.error("Error uploading file:", error);
   }
@@ -61,7 +66,9 @@ async function sendAudioBlob(blob) {
 
 function addMapMarker(curLocation) {
   if (curLocation) {
-    L.circleMarker([curLocation.lat, curLocation.lng], {radius: 3}).addTo(map);
+    L.circleMarker([curLocation.lat, curLocation.lng], { radius: 3 }).addTo(
+      map
+    );
     map.setView([curLocation.lat, curLocation.lng], 10);
   }
 }
@@ -78,9 +85,21 @@ recordBtn.addEventListener("mousedown", startRecording);
 recordBtn.addEventListener("mouseup", stopRecording);
 recordBtn.addEventListener("mouseleave", stopRecording);
 
-// Touch event support for mobile
-recordBtn.addEventListener("touchstart", startRecording);
-recordBtn.addEventListener("touchend", stopRecording);
+let isTalking = false;
+document.addEventListener("keydown", (event) => {
+  if (event.key === "\\" && !isTalking) {
+    recordBtn.textContent = "🔴 Transmission in progress";
+    isTalking = true;
+    startRecording();
+  }
+});
+document.addEventListener("keyup", (event) => {
+  if (event.key === "\\" && isTalking) {
+    isTalking = false;
+    recordBtn.textContent = "Press backslash to talk";
+    stopRecording();
+  }
+});
 
 document.addEventListener("DOMContentLoaded", async () => {
   loadCallSign();
@@ -104,7 +123,7 @@ async function loadRecentTranscripts() {
   transcripts.forEach((transcript) => {
     addTranscriptItem(transcript);
     addMapMarker(transcript.location);
-  })
+  });
 }
 
 function loadCallSign() {
@@ -114,13 +133,15 @@ function loadCallSign() {
     userCallSign = callSign;
     userDisplay.textContent = callSign.toUpperCase();
   } else {
-    window.location.href = "/lookup.html"
+    window.location.href = "/lookup.html";
   }
 }
 
 //#region Geolocation API
-let getLocation = () => new Promise((resolve, reject) => 
-  navigator.geolocation.getCurrentPosition(resolve, reject));
+let getLocation = () =>
+  new Promise((resolve, reject) =>
+    navigator.geolocation.getCurrentPosition(resolve, reject)
+  );
 
 //#endregion
 
@@ -131,46 +152,52 @@ const EMERGENCY_KEYWORDS = new Set(["ehs", "ambulance", "medical", "medic"]);
 
 // Function to detect keywords in a transcription string
 function detectKeywords(transcription) {
-    const detectedKeywords = new Set();
+  const detectedKeywords = new Set();
 
-    if (!transcription || transcription.trim() === "") return detectedKeywords;
+  if (!transcription || transcription.trim() === "") return detectedKeywords;
 
-    // Normalize input to lowercase for case-insensitive matching
-    const normalizedText = transcription.toLowerCase();
+  // Normalize input to lowercase for case-insensitive matching
+  const normalizedText = transcription.toLowerCase();
 
-    EMERGENCY_KEYWORDS.forEach(keyword => {
-        // Use word boundaries to avoid partial matches (like "MEDICINE")
-        const regex = new RegExp(`\\b${keyword}\\b`);
-        if (regex.test(normalizedText)) {
-            detectedKeywords.add(keyword);
-        }
-    });
+  EMERGENCY_KEYWORDS.forEach((keyword) => {
+    // Use word boundaries to avoid partial matches (like "MEDICINE")
+    const regex = new RegExp(`\\b${keyword}\\b`);
+    if (regex.test(normalizedText)) {
+      detectedKeywords.add(keyword);
+    }
+  });
 
-    return Array.from(detectedKeywords);
+  return Array.from(detectedKeywords);
 }
 
 // Processes an array of transcriptions and calls alert if any keyword is detected
 function processTranscripts(transcripts) {
-    transcripts.forEach((transcription, index) => {
-        const keywords = detectKeywords(transcription.transcript);
-        if (keywords.length > 0) {
-            console.log(`Transcript ${index + 1}: Detected keywords ->`, keywords);
-            const conf = confirm(`${transcription.callSign} has requested EHS. Trigger an alert?`); // Trigger alert if any keyword is found
-            if (conf) {
-              createOutgoingAlert(transcription);
-            }
-        } else {
-            console.log(`Transcript ${index + 1}: No emergency keywords found.`);
-        }
-    });
+  transcripts.forEach((transcription, index) => {
+    const keywords = detectKeywords(transcription.transcript);
+    if (keywords.length > 0) {
+      console.log(`Transcript ${index + 1}: Detected keywords ->`, keywords);
+      const conf = confirm(
+        `${transcription.callSign} has requested EHS. Trigger an alert?`
+      ); // Trigger alert if any keyword is found
+      if (conf) {
+        createOutgoingAlert(transcription);
+      }
+    } else {
+      console.log(`Transcript ${index + 1}: No emergency keywords found.`);
+    }
+  });
 }
 
 function createOutgoingAlert(transcript) {
   const alertDiv = document.getElementById("outgoing-alerts");
   const newDiv = document.createElement("div");
-  newDiv.innerHTML = `[${parseTimestamp(parseInt(transcript.timeStamp))}] EHS requested.`;
+  newDiv.innerHTML = `[${parseTimestamp(
+    parseInt(transcript.timeStamp)
+  )}] EHS requested.`;
   alertDiv.appendChild(newDiv);
-  alertDiv.addEventListener("click", () => {zoomToLocation(transcript.location)});
+  alertDiv.addEventListener("click", () => {
+    zoomToLocation(transcript.location);
+  });
 }
 
 function zoomToLocation(loc) {
