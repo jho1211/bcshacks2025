@@ -1,3 +1,8 @@
+:root {
+  --red: #ff2323;
+  --blue: #28205e;
+}
+
 body, html {
   margin: 0;
   padding: 0;
@@ -8,7 +13,7 @@ body, html {
 }
 
 header {
-  background-color: #28205e;
+  background-color: var(--blue);
   color: white;
   padding: 0.1rem 0.5rem;
   text-align: center;
@@ -22,7 +27,7 @@ header h1 {
 }
 
 .role-bar {
-  background-color: #28205e;
+  background-color: var(--blue);
   color: white;
   font-size: 0.9rem;
   font-weight: 300;
@@ -62,7 +67,7 @@ main {
 
 .left-sidebar {
   width: 40%;
-  background: #28205e;
+  background: var(--blue);
   padding-left: 0.5rem;
   padding-right: 0rem;
   padding-top: 0.5rem;
@@ -73,7 +78,7 @@ main {
 
 .right-sidebar {
   width: 60%;
-  background: #28205e;
+  background: var(--blue);
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -155,4 +160,12 @@ audio {
 
 ul {
   list-style-type: none;
+}
+
+#incoming-alerts {
+  height: 100%;
+}
+
+#connectedDiv {
+  height: 100%;
 }
