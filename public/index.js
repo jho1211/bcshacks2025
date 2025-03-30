@@ -167,14 +167,3 @@ function processTranscripts(transcripts) {
     });
 }
 
-// 🧪 Example usage
-const incomingTranscripts = [
-    "All units be advised, road is blocked.",
-    "Requesting ambulance at 5th and Main.",
-    "EHS should be notified of the situation.",
-    "Nothing medical, just a routine check.",
-    "Suspect is on foot heading east."
-];
-//#endregion
-
-processTranscripts(incomingTranscripts);
