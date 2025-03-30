@@ -100,21 +100,9 @@ async function loadRecentTranscripts() {
     transcripts = [];
   }
 
-  const transcriptListEle = document.getElementById("transcription-list");
-  const ul = document.createElement("ul");
-
   transcripts.forEach((transcript) => {
-    const li = document.createElement("li");
-    li.innerText = `[${parseTimestamp(parseInt(transcript.timeStamp))}] ${transcript.callSign}: ${transcript.transcript}`
-    ul.appendChild(li);
+    addTranscriptItem(transcript);
   })
-
-  transcriptListEle.appendChild(ul);
-}
-
-function parseTimestamp(timestamp) {
-  const date = new Date(timestamp);
-  return date.toISOString();
 }
 
 function loadCallSign() {
