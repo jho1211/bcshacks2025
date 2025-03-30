@@ -38,4 +38,4 @@ async function promptLlm(transcript) {
     return result;
 }
 
-promptLlm("5 minutes ago, suspect is white male running southbound down granville street wearing a black t shirt and red nike dunks. Suspect stabbed an officer and we need ambulance. Suspect is on the west side of the street.")
+// promptLlm("5 minutes ago, suspect is white male running southbound down granville street wearing a black t shirt and red nike dunks. Suspect stabbed an officer and we need ambulance. Suspect is on the west side of the street.")

@@ -137,7 +137,6 @@ function detectKeywords(transcription) {
 
     // Normalize input to lowercase for case-insensitive matching
     const normalizedText = transcription.toLowerCase();
-    console.log(normalizedText);
 
     EMERGENCY_KEYWORDS.forEach(keyword => {
         // Use word boundaries to avoid partial matches (like "MEDICINE")
@@ -158,7 +157,7 @@ function processTranscripts(transcripts) {
             console.log(`Transcript ${index + 1}: Detected keywords ->`, keywords);
             const conf = confirm(`${transcription.callSign} has requested EHS. Trigger an alert?`); // Trigger alert if any keyword is found
             if (conf) {
-              alert("EHS has been alerted");
+              createOutgoingAlert(transcription);
             }
         } else {
             console.log(`Transcript ${index + 1}: No emergency keywords found.`);
@@ -166,3 +165,14 @@ function processTranscripts(transcripts) {
     });
 }
 
+function createOutgoingAlert(transcript) {
+  const alertDiv = document.getElementById("outgoing-alerts");
+  const newDiv = document.createElement("div");
+  newDiv.innerHTML = `[${parseTimestamp(parseInt(transcript.timeStamp))}] EHS requested.`;
+  alertDiv.appendChild(newDiv);
+  alertDiv.addEventListener("click", () => {zoomToLocation(transcript.location)});
+}
+
+function zoomToLocation(loc) {
+  map.setView([loc.lat, loc.lng], 15);
+}
