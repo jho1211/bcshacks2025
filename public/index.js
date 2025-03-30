@@ -6,9 +6,11 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 let mediaRecorder;
 let audioChunks = [];
+let curLocation;
 
 const recordBtn = document.getElementById("recordBtn");
 const audioPlayback = document.getElementById("audioPlayback");
+const defaultCoords = {"lat": 0, "lon": 0}
 
 // Function to start recording
 async function startRecording() {
@@ -37,6 +39,8 @@ async function startRecording() {
 async function sendAudioBlob(blob) {
   const formData = new FormData();
   formData.append("audio", blob, "recorded_audio.wav"); // Assign a filename
+  formData.append("callSign", "Jeff")
+  formData.append("location", JSON.stringify(curLocation ?? defaultCoords))
 
   try {
     const response = await fetch("/upload", {
@@ -67,7 +71,27 @@ recordBtn.addEventListener("mouseleave", stopRecording);
 recordBtn.addEventListener("touchstart", startRecording);
 recordBtn.addEventListener("touchend", stopRecording);
 
-// ****** KEYWORD DETECTION********
+//#region Geolocation API
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, error);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+function success(position) {
+  curLocation = {
+    "lat": position.coords.latitude, "lon": position.coords.longitude
+  }
+}
+
+function error() {
+  alert("Sorry, no position available.");
+}
+//#endregion
+
+//#region KEYWORD DETECTION
 
 // Define the set of emergency-related keywords
 const EMERGENCY_KEYWORDS = new Set(["ehs", "ambulance", "medical", "medic"]);
@@ -118,5 +142,7 @@ const incomingTranscripts = [
     "Nothing medical, just a routine check.",
     "Suspect is on foot heading east."
 ];
+//#endregion
 
 processTranscripts(incomingTranscripts);
+getLocation();
