@@ -83,13 +83,18 @@ changeStream = Transcript.watch();
 changeStream.on("change", (change) => {
   if (change.operationType === "insert") {
     // console.log("New Entry:", change.fullDocument);
-    io.emit("newEntry", change.fullDocument);
+    // TODO: Add a way to look at call sign and determine which unit the transcript came from
+    // based on this, we send police or EHS event emit
+    io.emit("newPoliceEntry", change.fullDocument);
   }
 });
 
 io.on("connection", (socket) => {
   socket.on("sendEHSAlert", (data) => {
-    console.log("hellow orld");
     io.emit("newEHSAlert", data);
-  })
+  });
+
+  socket.on("sendPoliceAlert", (data) => {
+    io.emit("newPoliceAlert", data);
+  });
 })

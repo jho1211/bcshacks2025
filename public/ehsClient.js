@@ -146,7 +146,7 @@ let getLocation = () =>
 //#region KEYWORD DETECTION
 
 // Define the set of emergency-related keywords
-const EMERGENCY_KEYWORDS = new Set(["ehs", "ambulance", "medical", "medic"]);
+const EMERGENCY_KEYWORDS = new Set(["police", "cop", "guns", "shooters"]);
 
 // Function to detect keywords in a transcription string
 function detectKeywords(transcription) {
@@ -175,11 +175,11 @@ function processTranscripts(transcripts) {
     if (keywords.length > 0) {
       console.log(`Transcript ${index + 1}: Detected keywords ->`, keywords);
       const conf = confirm(
-        `${transcription.callSign} has requested EHS. Trigger an alert?`
+        `${transcription.callSign} has requested police. Trigger an alert?`
       ); // Trigger alert if any keyword is found
       if (conf) {
         createOutgoingAlert(transcription);
-        socket.emit("sendEHSAlert", transcription);
+        socket.emit("sendPoliceAlert", transcription);
       }
     } else {
       console.log(`Transcript ${index + 1}: No emergency keywords found.`);
@@ -210,7 +210,7 @@ function createIncomingAlert(transcript) {
   const newDiv = document.createElement("div");
   newDiv.innerHTML = `[${parseTimestamp(
     parseInt(transcript.timeStamp)
-  )}] EHS has requested police.`;
+  )}] Police has requested EHS.`;
   incDiv.appendChild(newDiv);
   newDiv.addEventListener("click", () => {
     zoomToLocation(transcript.location);
