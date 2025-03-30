@@ -127,7 +127,7 @@ main {
 .placeholder {
   height: 100%;
   background-color: #e0e0e0;
-
+  margin: 0px;
   border-radius: 0px;
 }
 
