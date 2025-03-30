@@ -129,11 +129,6 @@ let getLocation = () => new Promise((resolve, reject) =>
 // Define the set of emergency-related keywords
 const EMERGENCY_KEYWORDS = new Set(["ehs", "ambulance", "medical", "medic"]);
 
-// PLACEHOLDER alert function
-function alert() {
-    console.log("EHS has been alerted");
-}
-
 // Function to detect keywords in a transcription string
 function detectKeywords(transcription) {
     const detectedKeywords = new Set();
@@ -142,6 +137,7 @@ function detectKeywords(transcription) {
 
     // Normalize input to lowercase for case-insensitive matching
     const normalizedText = transcription.toLowerCase();
+    console.log(normalizedText);
 
     EMERGENCY_KEYWORDS.forEach(keyword => {
         // Use word boundaries to avoid partial matches (like "MEDICINE")
@@ -157,10 +153,13 @@ function detectKeywords(transcription) {
 // Processes an array of transcriptions and calls alert if any keyword is detected
 function processTranscripts(transcripts) {
     transcripts.forEach((transcription, index) => {
-        const keywords = detectKeywords(transcription);
+        const keywords = detectKeywords(transcription.transcript);
         if (keywords.length > 0) {
             console.log(`Transcript ${index + 1}: Detected keywords ->`, keywords);
-            alert(); // Trigger alert if any keyword is found
+            const conf = confirm(`${transcription.callSign} has requested EHS. Trigger an alert?`); // Trigger alert if any keyword is found
+            if (conf) {
+              alert("EHS has been alerted");
+            }
         } else {
             console.log(`Transcript ${index + 1}: No emergency keywords found.`);
         }
