@@ -42,12 +42,12 @@ async function summarizeTranscripts() {
   transcripts.forEach((transcript) => combinedText += `[${parseTimestamp(parseInt(transcript.timeStamp))}] ${
     transcript.callSign
   }: ${transcript.transcript}\n`);
-  
+
   summarizeBtn.innerText = "SUMMARIZING...";
   const resp = await promptLlm(combinedText);
   alert("Summary: \n" + resp);
   summarizeBtn.innerText = "SUMMARIZE TRANSCRIPT";
-  const summaryModel = parseSummaryModel(transcripts, combinedText);
+  const summaryModel = parseSummaryModel(transcripts, combinedText, resp);
 
   try {
     await fetch('summary', {
@@ -58,9 +58,11 @@ async function summarizeTranscripts() {
   } catch (err) {
     console.error(err);
   }
+
+  addSummaryItem(summaryModel);
 }
 
-function parseSummaryModel(transcripts, combinedText) {
+function parseSummaryModel(transcripts, combinedText, summary) {
   let participants = {};
   let minTime = Infinity;
   let maxTime = 0;
@@ -77,7 +79,8 @@ function parseSummaryModel(transcripts, combinedText) {
     "minTimestamp": minTime,
     "maxTimestamp": maxTime,
     "callSigns": Object.keys(participants),
-    "summary": combinedText,
+    "original": combinedText,
+    "summary": summary,
     "unit": unit
   }
 

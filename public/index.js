@@ -167,7 +167,7 @@ async function loadSummaries() {
     console.error(err);
   }
 
-  console.log(summaries);
+  summaries.forEach((summary) => addSummaryItem(summary));
 }
 
 async function loadRecentTranscripts() {

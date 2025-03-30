@@ -118,8 +118,22 @@ document.addEventListener("DOMContentLoaded", async () => {
   loadCallSign();
   broadcastConnected();
   loadRecentTranscripts();
+  loadSummaries();
   updateRoleBar();
 });
+
+async function loadSummaries() {
+  let summaries = [];
+  try {
+    const resp = await fetch("/summary?unit=Police");
+    const data = await resp.json();
+    summaries = data;
+  } catch (err) {
+    console.error(err);
+  }
+
+  summaries.forEach((summary) => addSummaryItem(summary));
+}
 
 function broadcastConnected() {
   const role = localStorage.getItem("loggedInRole");
