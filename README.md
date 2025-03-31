@@ -15,7 +15,7 @@ Burnout is rampant at call centres all across the world, which makes it clear: t
 
 That’s what inspired us to build TRIAX—an AI-powered, unified dispatch assistant to reduce cognitive load, streamline response, and bring emergency services together under one smart, intuitive platform.
 
-# What it does
+# What It Does
 Triax is an AI-powered dispatch assistant that streamlines communication and coordination across police, fire, and ambulance services. By automating transcription, summarization, and geolocation, it reduces dispatcher workload and ensures faster, smarter emergency response.
 
 # Key Features
@@ -49,7 +49,7 @@ SUMMARY:
 ## Timeline-Based Geolocation Mapping 
 We implemented a real-time map of events powered by GPS data associated with each transcription. This makes a visual replay of pursuit direction, movement and can be used for tracing path reconstruction.
 
-# How we built it
+# How We Built It
 - AI Speech-to-Text Transcription (Whisper-Open AI) We have a flask server using a Python package called Whisper-Open AI which runs the Whisper speech-to-text (STT) model locally to keep transcript information confidential. We send the audio recording from the frontend to the flask server to be transcribed by Whisper and then retrieve the transcribed message.
 - Automated Inter-Agency Notifications (WebSockets) WebSocket clients emit an event when an emergency keyword is detected in the transcript, which the WebSocket receives and emits another event to trigger the adjacent agency to receive an alert.
 - Live Updates to Clients (WebSockets) WebSocket server emits an event to all clients when it detects that a change has been made to the Transcripts database.
