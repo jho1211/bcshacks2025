@@ -16,7 +16,7 @@ Burnout is rampant at call centres all across the world, which makes it clear: t
 That’s what inspired us to build TRIAX—an AI-powered, unified dispatch assistant to reduce cognitive load, streamline response, and bring emergency services together under one smart, intuitive platform.
 
 # What It Does
-Triax is an AI-powered dispatch assistant that streamlines communication and coordination across police, fire, and ambulance services. By automating transcription, summarization, and geolocation, it reduces dispatcher workload and ensures faster, smarter emergency response.
+TRIAX is an AI-powered dispatch assistant that streamlines communication and coordination across police, fire, and ambulance services. By automating transcription, summarization, and geolocation, it reduces dispatcher workload and ensures faster, smarter emergency response.
 
 # Key Features
 
