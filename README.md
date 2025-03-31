@@ -1,5 +1,5 @@
 # TRIAX - AI Powered Dispatching
-[Link to Devpost](https://devpost.com/software/triax)
+# [Link to Devpost](https://devpost.com/software/triax)
 
 # Inspiration
 TRIAX was born out of firsthand experience from one of our team members who worked as a 911 Police Dispatcher. One summer day, a critical incident came in—someone had attempted suicide and was in life-threatening condition, in need of immediate medical attention. But due to system fragmentation, there was no automatic, direct line to ambulance dispatch. We had to call Emergency Health Services manually with a landline, only to be placed on hold for 15 excruciating minutes as their own dispatch centre was overwhelmed from the voluminous amount of calls they were receiving that hot summer day.
