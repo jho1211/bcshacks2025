@@ -32,7 +32,11 @@ We used WebSockets to implement real-time data synchronization system between ou
 ## AI-Powered Sentiment-Based Summarization 
 The summary feature will extract and prioritize key information from active files based on real-world dispatch protocols. The system generates an automatic summary of the radio logs, organizing information in a clear, structured format. For example:
 ```
-TRANSCRIPT: "5 minutes ago, suspect is white male running southbound down granville street wearing a black t shirt and red nike dunks. Suspect stabbed an officer with a knife and we need ambulance. Suspect is on the west side of the street."
+TRANSCRIPT:
+"5 minutes ago, suspect is white male running southbound down granville street wearing a black t shirt and red nike dunks.
+Suspect stabbed an officer with a knife and we need ambulance.
+Suspect is on the west side of the street."
+
 SUMMARY:
 ⏰ Time Delay: 5 minutes ago
 🔫 Weapons: knife
